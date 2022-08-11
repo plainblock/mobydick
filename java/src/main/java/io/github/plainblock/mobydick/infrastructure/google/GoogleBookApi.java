@@ -17,22 +17,22 @@ import io.github.plainblock.mobydick.domain.model.entity.Book;
 import io.github.plainblock.mobydick.domain.model.object.ISBN;
 import io.github.plainblock.mobydick.domain.repository.ExternalRepository;
 import io.github.plainblock.mobydick.infrastructure.google.data.GoogleBook;
-import io.github.plainblock.mobydick.infrastructure.google.query.SearchQuery;
+import io.github.plainblock.mobydick.infrastructure.google.query.GoogleBookQuery;
 import io.github.plainblock.mobydick.infrastructure.google.data.GoogleBookItem;
 
-public class GoogleBooksApi implements ExternalRepository {
+public class GoogleBookApi implements ExternalRepository {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(GoogleBooksApi.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GoogleBookApi.class);
     private static final String ENDPOINT = "https://www.googleapis.com/books/v1/volumes";
     private ObjectMapper mapper;
 
-    public GoogleBooksApi() {
+    public GoogleBookApi() {
         mapper = new ObjectMapper();
     }
 
     @Override
     public List<Book> searchBooks(String title, String author, String publisher) {
-        SearchQuery query = new SearchQuery(null, title, author, publisher, null, null, null, null);
+        GoogleBookQuery query = new GoogleBookQuery(null, title, author, publisher, null, null, null, null);
         GoogleBook result = execute(null, query, GoogleBook.class);
         if (result == null || result.getItems().isEmpty()) {
             return new ArrayList<>();
@@ -42,7 +42,7 @@ public class GoogleBooksApi implements ExternalRepository {
 
     @Override
     public Optional<Book> fetchBook(ISBN isbn) {
-        SearchQuery query = new SearchQuery(null, null, null, null, null, isbn.value(), null, null);
+        GoogleBookQuery query = new GoogleBookQuery(null, null, null, null, null, isbn.value(), null, null);
         GoogleBook result = execute(null, query, GoogleBook.class);
         if (result == null || result.getItems().isEmpty()) {
             return Optional.empty();
@@ -50,7 +50,7 @@ public class GoogleBooksApi implements ExternalRepository {
         return Optional.of(result.getItems().get(0).toBook());
     }
 
-    private <T> T execute(String id, SearchQuery query, Class<T> clazz) {
+    private <T> T execute(String id, GoogleBookQuery query, Class<T> clazz) {
         try {
             URL url = setupURL(id, query);
             LOGGER.debug("GET " + url);
@@ -64,7 +64,7 @@ public class GoogleBooksApi implements ExternalRepository {
         return null;
     }
 
-    private URL setupURL(String id, SearchQuery query) throws MalformedURLException {
+    private URL setupURL(String id, GoogleBookQuery query) throws MalformedURLException {
         StringBuilder sb = new StringBuilder(ENDPOINT);
         if (id != null && !id.isBlank()) {
             sb.append("/");

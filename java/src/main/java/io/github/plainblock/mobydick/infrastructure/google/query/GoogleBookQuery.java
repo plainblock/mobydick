@@ -2,9 +2,9 @@ package io.github.plainblock.mobydick.infrastructure.google.query;
 
 import java.security.InvalidParameterException;
 
-public record SearchQuery(String keyword, String title, String author, String publisher, String subject, String isbn, String lccn, String oclc) {
+public record GoogleBookQuery(String keyword, String title, String author, String publisher, String subject, String isbn, String lccn, String oclc) {
 
-    public SearchQuery {
+    public GoogleBookQuery {
         if (isBlank(keyword) && isBlank(title) && isBlank(author) && isBlank(publisher) && isBlank(subject) && isBlank(isbn) && isBlank(lccn) && isBlank(oclc)) {
             throw new InvalidParameterException("At least one query parameter is required");
         }

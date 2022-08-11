@@ -8,9 +8,9 @@ import org.junit.jupiter.api.Test;
 import io.github.plainblock.mobydick.domain.model.entity.Book;
 import io.github.plainblock.mobydick.domain.model.object.ISBN;
 
-public class GoogleBooksApiTest {
+public class GoogleBookApiTest {
 
-    private final GoogleBooksApi api = new GoogleBooksApi();
+    private final GoogleBookApi api = new GoogleBookApi();
 
     @Test
     void searchBooksTest() {
