@@ -1,5 +1,6 @@
 package io.github.plainblock.mobydick.controller;
 
+import java.util.function.Function;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -22,14 +23,26 @@ public class MobyDickController {
     private Label welcomeText;
 
     @FXML
+    private Label processingTime;
+
+    @FXML
     private void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+        measureTime(() -> welcomeText.setText("Welcome to JavaFX Application!"));
     }
 
     @FXML
     private void onMobyDick() {
-        Book book = referenceService.findByISBN("9780810102699");
-        welcomeText.setText(book.getTitle());
+        measureTime(() -> {
+            Book book = referenceService.findByISBN("9780810102699");
+            welcomeText.setText(book.getTitle());
+        });
+    }
+
+    private void measureTime(Runnable callback) {
+        long start = System.currentTimeMillis();
+        callback.run();
+        long end = System.currentTimeMillis();
+        processingTime.setText(String.format("%d ms", end - start));
     }
 
 }
