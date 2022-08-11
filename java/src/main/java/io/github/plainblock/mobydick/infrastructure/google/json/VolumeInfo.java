@@ -1,4 +1,4 @@
-package io.github.plainblock.mobydick.infrastructure.google.data;
+package io.github.plainblock.mobydick.infrastructure.google.json;
 
 import java.util.List;
 

@@ -16,9 +16,9 @@ import org.slf4j.LoggerFactory;
 import io.github.plainblock.mobydick.domain.model.entity.Book;
 import io.github.plainblock.mobydick.domain.model.object.ISBN;
 import io.github.plainblock.mobydick.domain.repository.ExternalRepository;
-import io.github.plainblock.mobydick.infrastructure.google.data.GoogleBook;
+import io.github.plainblock.mobydick.infrastructure.google.json.GoogleBook;
 import io.github.plainblock.mobydick.infrastructure.google.query.GoogleBookQuery;
-import io.github.plainblock.mobydick.infrastructure.google.data.GoogleBookItem;
+import io.github.plainblock.mobydick.infrastructure.google.json.GoogleBookItem;
 
 public class GoogleBookApi implements ExternalRepository {
 
