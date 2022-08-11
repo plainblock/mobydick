@@ -1,6 +1,5 @@
 package io.github.plainblock.mobydick.controller;
 
-import java.util.function.Function;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -31,10 +30,18 @@ public class MobyDickController {
     }
 
     @FXML
-    private void onMobyDick() {
+    private void onReference() {
         measureTime(() -> {
             Book book = referenceService.findByISBN("9780810102699");
-            welcomeText.setText(book.getTitle());
+            welcomeText.setText(book.getTitle() + ", " + book.getAuthor() + ", " + book.getPublisher());
+        });
+    }
+
+    @FXML
+    private void onManagement() {
+        measureTime(() -> {
+            Book book = managementService.findById("SAMPLE");
+            welcomeText.setText(book.getTitle() + ", " + book.getStatus().label());
         });
     }
 
