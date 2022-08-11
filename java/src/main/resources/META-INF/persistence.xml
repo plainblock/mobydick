@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
+    <persistence-unit name="mobydick" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>io.github.plainblock.mobydick.infrastructure.sqlite.table.BookTable</class>
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:mobydick.db" />
+            <property name="hibernate.dialect" value="org.sqlite.hibernate.dialect.SQLiteDialect" />
+            <property name="hibernate.show-sql" value="true" />
+            <property name="hibernate.format-sql" value="true" />
+        </properties>
+    </persistence-unit>
+</persistence>
