@@ -8,37 +8,41 @@ import javax.swing.*;
 import io.github.plainblock.mobydick.controller.MobyDickController;
 import io.github.plainblock.mobydick.factory.MobyDickFactory;
 
-public class MobyDickView extends JFrame implements ActionListener {
+public class MobyDickView extends JPanel  {
 
-    private final MobyDickController controller;
+    private JButton welcomeButton;
+    private JLabel processingTimeLabel;
 
-    public MobyDickView(String title, int width, int height) {
-        controller = MobyDickFactory.getMobyDickController();
-        setTitle(title);
-        setSize(width, height);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    public MobyDickView() {
+
+//        setTitle(title);
+//        setLocationRelativeTo(null);
+//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
         setupWelcomeButton();
+//        setupProcessingTimeLabel();
+        JPanel panel = new JPanel();
     }
 
     private void setupWelcomeButton() {
-        JButton button = new JButton("Welcome");
-        button.addActionListener(this);
-        button.setActionCommand("welcome");
-        Container contentPane = getContentPane();
-        contentPane.add(button, BorderLayout.CENTER);
+        welcomeButton = new JButton("Welcome");
+        welcomeButton.setActionCommand("welcome");
+//        Container contentPane = getContentPane();
+//        contentPane.add(welcomeButton, BorderLayout.CENTER);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent event) {
-        String command = event.getActionCommand();
-        switch (command) {
-            case "welcome" -> controller.onHelloButtonClick();
-            case "reference" -> controller.onReference();
-            case "management" -> controller.onManagement();
-        }
+    private void setupProcessingTimeLabel() {
+        processingTimeLabel = new JLabel();
+//        Container contentPane = getContentPane();
+//        contentPane.add(processingTimeLabel, BorderLayout.CENTER);
+    }
+
+    private void measureTime(Runnable callback) {
+        long start = System.currentTimeMillis();
+        callback.run();
+        long end = System.currentTimeMillis();
+        processingTimeLabel.setText(String.format("%d ms", end - start));
     }
 
 }

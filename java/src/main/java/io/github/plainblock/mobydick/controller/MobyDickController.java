@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 
 import io.github.plainblock.mobydick.domain.model.entity.Book;
 import io.github.plainblock.mobydick.factory.MobyDickFactory;
+import io.github.plainblock.mobydick.presentation.view.MobyDickView;
 import io.github.plainblock.mobydick.service.ManagementService;
 import io.github.plainblock.mobydick.service.ReferenceService;
 
@@ -12,6 +13,8 @@ public class MobyDickController {
 
     private final ReferenceService reference;
     private final ManagementService management;
+
+    private MobyDickView view;
 
     public MobyDickController() {
         this.reference = MobyDickFactory.getReferenceService();
@@ -21,6 +24,14 @@ public class MobyDickController {
     public MobyDickController(ReferenceService reference, ManagementService management) {
         this.reference = reference;
         this.management = management;
+    }
+
+    public void setup() {
+        this.view = new MobyDickView();
+    }
+
+    public MobyDickView getView() {
+        return view;
     }
 
     @FXML
