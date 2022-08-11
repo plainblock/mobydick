@@ -1,4 +1,5 @@
 module mobydick {
+    requires java.desktop;
     requires java.persistence;
     requires java.sql;
     requires java.xml.bind;

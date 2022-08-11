@@ -10,12 +10,17 @@ import io.github.plainblock.mobydick.service.ReferenceService;
 
 public class MobyDickController {
 
-    private final ReferenceService referenceService;
-    private final ManagementService managementService;
+    private final ReferenceService reference;
+    private final ManagementService management;
 
     public MobyDickController() {
-        this.referenceService = MobyDickFactory.getReferenceService();
-        this.managementService = MobyDickFactory.getManagementService();
+        this.reference = MobyDickFactory.getReferenceService();
+        this.management = MobyDickFactory.getManagementService();
+    }
+
+    public MobyDickController(ReferenceService reference, ManagementService management) {
+        this.reference = reference;
+        this.management = management;
     }
 
     @FXML
@@ -25,22 +30,22 @@ public class MobyDickController {
     private Label processingTime;
 
     @FXML
-    private void onHelloButtonClick() {
+    public void onHelloButtonClick() {
         measureTime(() -> welcomeText.setText("Welcome to JavaFX Application!"));
     }
 
     @FXML
-    private void onReference() {
+    public void onReference() {
         measureTime(() -> {
-            Book book = referenceService.findByISBN("9780810102699");
+            Book book = reference.findByISBN("9780810102699");
             welcomeText.setText(book.getTitle() + ", " + book.getAuthor() + ", " + book.getPublisher());
         });
     }
 
     @FXML
-    private void onManagement() {
+    public void onManagement() {
         measureTime(() -> {
-            Book book = managementService.findById("SAMPLE");
+            Book book = management.findById("SAMPLE");
             welcomeText.setText(book.getTitle() + ", " + book.getStatus().label());
         });
     }

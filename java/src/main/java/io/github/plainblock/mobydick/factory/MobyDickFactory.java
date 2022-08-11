@@ -1,5 +1,6 @@
 package io.github.plainblock.mobydick.factory;
 
+import io.github.plainblock.mobydick.controller.MobyDickController;
 import io.github.plainblock.mobydick.domain.repository.ExternalRepository;
 import io.github.plainblock.mobydick.domain.repository.InternalRepository;
 import io.github.plainblock.mobydick.infrastructure.google.GoogleBookApi;
@@ -8,6 +9,10 @@ import io.github.plainblock.mobydick.service.ManagementService;
 import io.github.plainblock.mobydick.service.ReferenceService;
 
 public class MobyDickFactory {
+
+    public static MobyDickController getMobyDickController() {
+        return new MobyDickController(getReferenceService(), getManagementService());
+    }
 
     public static ReferenceService getReferenceService() {
         return new ReferenceService(getExternalRepository());
