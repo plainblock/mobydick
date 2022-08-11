@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'org.openjfx.javafxplugin' version '0.0.13'
     id 'org.beryx.jlink' version '2.25.0'
 }
@@ -27,6 +28,16 @@ application {
 javafx {
     version = '17.0.2'
     modules = ['javafx.controls', 'javafx.fxml']
+}
+
+shadowJar {
+    archiveClassifier.set('shadow')
+    dependencies {
+        include(dependency('org.openjfx:javafx-base:17:win'))
+        include(dependency('org.openjfx:javafx-graphics:17:win'))
+        include(dependency('org.openjfx:javafx-controls:17:win'))
+    }
+    relocate 'org.openjfx', "maptool.shaded.shadedjfx"
 }
 
 ext {
