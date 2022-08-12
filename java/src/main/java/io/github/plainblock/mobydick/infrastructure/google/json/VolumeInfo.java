@@ -27,7 +27,7 @@ public class VolumeInfo {
     private String description;
 
     @JsonProperty("industryIdentifiers")
-    private List<IndustryIdentifier> IndustryIdentifiers;
+    private List<IndustryIdentifier> industryIdentifiers;
 
     @JsonProperty("readingModes")
     private ReadingMode readingModes;
@@ -98,12 +98,15 @@ public class VolumeInfo {
     }
 
     public List<IndustryIdentifier> getIndustryIdentifiers() {
-        return IndustryIdentifiers;
+        return industryIdentifiers;
     }
 
     public String getISBN() {
+        if (industryIdentifiers == null || industryIdentifiers.isEmpty()) {
+            return null;
+        }
         String isbn10 = null;
-        for (IndustryIdentifier ii : IndustryIdentifiers) {
+        for (IndustryIdentifier ii : industryIdentifiers) {
             if (ii.getType().equals("ISBN_13")) {
                 return ii.getIdentifier();
             } else if (ii.getType().equals("ISBN_10")) {
