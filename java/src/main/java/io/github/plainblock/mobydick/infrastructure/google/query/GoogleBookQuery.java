@@ -1,5 +1,7 @@
 package io.github.plainblock.mobydick.infrastructure.google.query;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidParameterException;
 
 public record GoogleBookQuery(String keyword, String title, String author, String publisher, String subject, String isbn, String lccn, String oclc) {
@@ -14,7 +16,7 @@ public record GoogleBookQuery(String keyword, String title, String author, Strin
         boolean requirePlusMarker = false;
         StringBuilder sb = new StringBuilder("?q=");
         if (!isBlank(keyword)) {
-            sb.append(keyword.trim());
+            sb.append(encode(keyword));
             requirePlusMarker = true;
         }
         if (!isBlank(title)) {
@@ -48,17 +50,18 @@ public record GoogleBookQuery(String keyword, String title, String author, Strin
     }
 
     private static boolean isBlank(String target) {
-        if (target == null || target.isBlank()) {
-            return true;
-        }
-        return false;
+        return target == null || target.isBlank();
     }
 
     private String toParam(String key, String value, boolean plusMarker) {
         if (plusMarker) {
-            return "+" + key + ":" + value.trim();
+            return "+" + key + ":" + encode(value);
         }
-        return key + ":" + value.trim();
+        return key + ":" + encode(value);
+    }
+
+    private String encode(String value) {
+        return URLEncoder.encode(value.trim(), StandardCharsets.UTF_8).replace("+", "%20");
     }
 
 }
