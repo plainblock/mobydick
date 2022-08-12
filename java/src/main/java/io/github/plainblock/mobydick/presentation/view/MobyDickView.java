@@ -1,48 +1,129 @@
 package io.github.plainblock.mobydick.presentation.view;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.*;
+import io.github.plainblock.mobydick.presentation.component.CustomTextField;
 
-import io.github.plainblock.mobydick.controller.MobyDickController;
-import io.github.plainblock.mobydick.factory.MobyDickFactory;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 
-public class MobyDickView extends JPanel  {
+public class MobyDickView extends JPanel {
 
+    private CustomTextField isbnInputField;
     private JButton welcomeButton;
-    private JLabel processingTimeLabel;
+    private JButton referenceButton;
+    private JButton managementButton;
+    private JLabel processMessageLabel;
+    private JLabel processTimeLabel;
 
     public MobyDickView() {
-
-//        setTitle(title);
-//        setLocationRelativeTo(null);
-//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
-
-        setupWelcomeButton();
-//        setupProcessingTimeLabel();
-        JPanel panel = new JPanel();
+        super();
+        GridBagLayout layout = new GridBagLayout();
+        setLayout(layout);
+        initIsbnInputField(layout);
+        initWelcomeButton(layout);
+        initReferenceButton(layout);
+        initManagementButton(layout);
+        initProcessMessageLabel(layout);
+        initProcessTimeLabel(layout);
     }
 
-    private void setupWelcomeButton() {
+    private void initIsbnInputField(GridBagLayout layout) {
+        isbnInputField = new CustomTextField();
+        isbnInputField.setPreferredSize(new Dimension(500, 20));
+        isbnInputField.setEditable(true);
+        isbnInputField.setBorder(new BevelBorder(BevelBorder.LOWERED));
+        isbnInputField.setBackground(Color.WHITE);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 10;
+        gbc.gridheight = 1;
+        layout.setConstraints(isbnInputField, gbc);
+        add(isbnInputField);
+    }
+
+    private void initWelcomeButton(GridBagLayout layout) {
         welcomeButton = new JButton("Welcome");
-        welcomeButton.setActionCommand("welcome");
-//        Container contentPane = getContentPane();
-//        contentPane.add(welcomeButton, BorderLayout.CENTER);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        layout.setConstraints(welcomeButton, gbc);
+        add(welcomeButton);
     }
 
-    private void setupProcessingTimeLabel() {
-        processingTimeLabel = new JLabel();
-//        Container contentPane = getContentPane();
-//        contentPane.add(processingTimeLabel, BorderLayout.CENTER);
+    private void initReferenceButton(GridBagLayout layout) {
+        referenceButton = new JButton("Reference");
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        layout.setConstraints(referenceButton, gbc);
+        add(referenceButton);
     }
 
-    private void measureTime(Runnable callback) {
-        long start = System.currentTimeMillis();
-        callback.run();
-        long end = System.currentTimeMillis();
-        processingTimeLabel.setText(String.format("%d ms", end - start));
+    private void initManagementButton(GridBagLayout layout) {
+        managementButton = new JButton("Management");
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 2;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        layout.setConstraints(managementButton, gbc);
+        add(managementButton);
+    }
+
+    private void initProcessMessageLabel(GridBagLayout layout) {
+        processMessageLabel = new JLabel();
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 10;
+        gbc.gridheight = 1;
+        layout.setConstraints(processMessageLabel, gbc);
+        add(processMessageLabel);
+    }
+
+    private void initProcessTimeLabel(GridBagLayout layout) {
+        processTimeLabel = new JLabel();
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.gridwidth = 10;
+        gbc.gridheight = 1;
+        layout.setConstraints(processTimeLabel, gbc);
+        add(processTimeLabel);
+    }
+
+    public CustomTextField getIsbnInputField() {
+        return isbnInputField;
+    }
+
+    public JButton getWelcomeButton() {
+        return welcomeButton;
+    }
+
+    public JButton getReferenceButton() {
+        return referenceButton;
+    }
+
+    public JButton getManagementButton() {
+        return managementButton;
+    }
+
+    public JLabel getProcessMessageLabel() {
+        return processMessageLabel;
+    }
+
+    public JLabel getProcessTimeLabel() {
+        return processTimeLabel;
     }
 
 }
