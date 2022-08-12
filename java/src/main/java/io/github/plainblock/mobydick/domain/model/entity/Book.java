@@ -54,6 +54,13 @@ public class Book {
         repo.truncate(this);
     }
 
+    public String[] toRowData() {
+        if (isbn == null) {
+            return new String[]{title, author, publisher, ""};
+        }
+        return new String[]{title, author, publisher, isbn.value()};
+    }
+
     public BookId getId() {
         return id;
     }

@@ -15,5 +15,8 @@ module mobydick {
     opens io.github.plainblock.mobydick.infrastructure.sqlite.table;
 
     exports io.github.plainblock.mobydick;
+    exports io.github.plainblock.mobydick.service;
+    exports io.github.plainblock.mobydick.presentation.component;
     exports io.github.plainblock.mobydick.presentation.controller;
+    exports io.github.plainblock.mobydick.presentation.view;
 }

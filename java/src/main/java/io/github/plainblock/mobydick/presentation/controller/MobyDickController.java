@@ -7,6 +7,8 @@ import io.github.plainblock.mobydick.service.ReferenceService;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 public class MobyDickController implements ActionListener {
 
@@ -49,14 +51,25 @@ public class MobyDickController implements ActionListener {
 
     private void onReference() {
         measureTime(() -> {
-            String isbn = view.getIsbnInputField().getText();
-//            Book book = reference.findByISBN("9780810102699");
-            Book book = reference.findByISBN(isbn);
-            if (book != null) {
-                view.getProcessMessageLabel().setText(book.getTitle() + ", " + book.getAuthor() + ", " + book.getPublisher());
-            } else {
-                view.getProcessMessageLabel().setText("Target book is not found");
+            String title = view.getTitleInputField().getText();
+            String author = view.getAuthorInputField().getText();
+            String publisher = view.getPublisherInputField().getText();
+            if (title.isBlank() && author.isBlank() && publisher.isBlank()) {
+                view.getProcessMessageLabel().setText("No condition specified");
+                return;
             }
+            List<Book> books = reference.findWithCondition(title, author, publisher);
+            if (books == null || books.isEmpty()) {
+                view.getProcessMessageLabel().setText("Target book is not found");
+                return;
+            }
+            String[] columns = {"Title", "Author", "Publisher", "ISBN"};
+            String[][] data = new String[books.size()][4];
+            for (int i = 0; i < books.size(); i++) {
+                data[i] = books.get(i).toRowData();
+            }
+            DefaultTableModel model = new DefaultTableModel(data, columns);
+            view.getReferenceTable().setModel(model);
         });
     }
 
