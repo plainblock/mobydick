@@ -37,9 +37,9 @@ public class GoogleBookItem {
     public Book toBook() {
         String isbn = volumeInfo.getISBN();
         if (isbn == null || isbn.isBlank()) {
-            return new Book(null, null, volumeInfo.getTitle(), volumeInfo.getAuthor(), volumeInfo.getPublisher(), BookStatus.WANT_TO_READ);
+            return new Book(null, null, volumeInfo.getTitle(), volumeInfo.getAuthor(), volumeInfo.getPublisher(), BookStatus.NOT_PURCHASED);
         }
-        return new Book(null, new ISBN(isbn), volumeInfo.getTitle(), volumeInfo.getAuthor(), volumeInfo.getPublisher(), BookStatus.WANT_TO_READ);
+        return new Book(null, new ISBN(isbn), volumeInfo.getTitle(), volumeInfo.getAuthor(), volumeInfo.getPublisher(), BookStatus.NOT_PURCHASED);
     }
 
     public String getId() {
