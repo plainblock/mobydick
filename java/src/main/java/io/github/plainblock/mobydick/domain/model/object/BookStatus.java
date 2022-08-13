@@ -1,7 +1,10 @@
 package io.github.plainblock.mobydick.domain.model.object;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum BookStatus {
-    WANT_TO_READ(0, "未読"),
+    NOT_PURCHASED(0, "未購入"),
     NOT_YET_READ(1, "積読"),
     ALREADY_READ(2, "既読"),
     ;
@@ -27,7 +30,27 @@ public enum BookStatus {
                 return status;
             }
         }
-        return BookStatus.WANT_TO_READ;
+        return null;
+    }
+
+    public static BookStatus fromLabel(String label) {
+        for (BookStatus status : BookStatus.values()) {
+            if (status.label.equals(label)) {
+                return status;
+            }
+        }
+        return null;
+    }
+
+    public static String[] toArray(boolean withAll) {
+        List<String> list = new ArrayList<>();
+        if (withAll) {
+            list.add("すべて");
+        }
+        for (BookStatus status : BookStatus.values()) {
+            list.add(status.label);
+        }
+        return list.toArray(new String[0]);
     }
 
 }
