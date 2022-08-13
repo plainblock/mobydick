@@ -16,6 +16,9 @@ module mobydick {
 
     exports io.github.plainblock.mobydick;
     exports io.github.plainblock.mobydick.service;
+    exports io.github.plainblock.mobydick.domain.model.entity;
+    exports io.github.plainblock.mobydick.domain.model.object;
+    exports io.github.plainblock.mobydick.domain.repository;
     exports io.github.plainblock.mobydick.presentation.component;
     exports io.github.plainblock.mobydick.presentation.controller;
     exports io.github.plainblock.mobydick.presentation.view;
