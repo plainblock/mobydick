@@ -10,7 +10,7 @@ import java.awt.event.KeyListener;
 
 public class CustomTextField extends JTextField implements UndoableEditListener, KeyListener {
 
-    private UndoManager undoManager = new UndoManager();
+    private final UndoManager undoManager = new UndoManager();
 
     public CustomTextField() {
         this(null);
