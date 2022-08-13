@@ -24,7 +24,7 @@ public class GoogleBookApi implements ExternalRepository {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GoogleBookApi.class);
     private static final String ENDPOINT = "https://www.googleapis.com/books/v1/volumes";
-    private ObjectMapper mapper;
+    private final ObjectMapper mapper;
 
     public GoogleBookApi() {
         mapper = new ObjectMapper();
@@ -34,7 +34,7 @@ public class GoogleBookApi implements ExternalRepository {
     public List<Book> searchBooks(String title, String author, String publisher) {
         GoogleBookQuery query = new GoogleBookQuery(null, title, author, publisher, null, null, null, null);
         GoogleBook result = execute(null, query, GoogleBook.class);
-        if (result == null || result.getItems().isEmpty()) {
+        if (result == null || result.getItems() == null || result.getItems().isEmpty()) {
             return new ArrayList<>();
         }
         return result.getItems().stream().map(GoogleBookItem::toBook).toList();
