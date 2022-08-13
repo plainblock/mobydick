@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 group 'io.github.plainblock.mobydick'
@@ -20,6 +21,12 @@ tasks.withType(JavaCompile) {
 application {
     mainModule = 'io.github.plainblock.mobydick'
     mainClass = 'io.github.plainblock.mobydick.MobyDick'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'io.github.plainblock.mobydick.MobyDick'
+    }
 }
 
 ext {
