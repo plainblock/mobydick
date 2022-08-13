@@ -16,7 +16,7 @@ public class SqliteBookDaoTest {
 
     @Test
     void filterBooksTest() {
-        List<Book> books = dao.filterBooks("Moby", null, null, null);
+        List<Book> books = dao.filterBooks("Moby", null, null, null, null);
         books.forEach(b -> {
             Assertions.assertNotNull(b);
             System.out.println("[title: " + b.getTitle() + ", author: " + b.getAuthor() + ", publisher: " + b.getPublisher() + "]");
