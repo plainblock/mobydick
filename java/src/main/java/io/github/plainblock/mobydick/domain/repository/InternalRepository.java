@@ -6,10 +6,13 @@ import java.util.Optional;
 import io.github.plainblock.mobydick.domain.model.entity.Book;
 import io.github.plainblock.mobydick.domain.model.object.BookId;
 import io.github.plainblock.mobydick.domain.model.object.BookStatus;
+import io.github.plainblock.mobydick.domain.model.object.ISBN;
 
 public interface InternalRepository {
 
-    List<Book> filterBooks(String title, String author, String publisher, BookStatus status);
+    List<Book> searchBooks(String keyword, BookStatus status);
+
+    List<Book> filterBooks(String title, String author, String publisher, ISBN isbn, BookStatus status);
 
     List<Book> getAllBooks();
 
