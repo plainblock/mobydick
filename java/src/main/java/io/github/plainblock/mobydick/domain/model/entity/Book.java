@@ -26,16 +26,23 @@ public class Book {
         this.status = status;
     }
 
-    public Book create(InternalRepository repo) {
+    public Book create(InternalRepository repo, BookStatus status) {
+        if (status == null) {
+            throw new InvalidParameterException("BookStatus is null");
+        }
         BookId bookId = BookId.generate();
         while (isExisted(repo, bookId)) {
             bookId = BookId.generate();
         }
         this.id = bookId;
+        this.status = status;
         return repo.persist(this);
     }
 
     public Book update(InternalRepository repo, BookStatus status) {
+        if (status == null) {
+            throw new InvalidParameterException("BookStatus is null");
+        }
         if (this.id == null) {
             throw new InvalidParameterException("BookId is null");
         }
@@ -54,11 +61,15 @@ public class Book {
         repo.truncate(this);
     }
 
-    public String[] toRowData() {
+    public String[] toRowReferenceData() {
         if (isbn == null) {
             return new String[]{title, author, publisher, ""};
         }
         return new String[]{title, author, publisher, isbn.value()};
+    }
+
+    public String[] toRowManagementData() {
+        return new String[]{title, author, publisher, status.label()};
     }
 
     public BookId getId() {
