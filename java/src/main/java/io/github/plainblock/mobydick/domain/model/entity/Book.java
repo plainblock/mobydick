@@ -18,6 +18,7 @@ public class Book {
     private String author;
     private String publisher;
     private String publishedDate;
+    private String information;
     private BookStatus status;
     private Date registerAt;
     private Date readAt;
@@ -25,13 +26,14 @@ public class Book {
     private Book() {
     }
 
-    public Book(BookId id, ISBN isbn, String title, String author, String publisher, String publishedDate, BookStatus status, Date registerAt, Date readAt) {
+    public Book(BookId id, ISBN isbn, String title, String author, String publisher, String publishedDate, String information, BookStatus status, Date registerAt, Date readAt) {
         this.id = id;
         this.isbn = isbn;
         this.title = title;
         this.author = author;
         this.publisher = publisher;
         this.publishedDate = publishedDate;
+        this.information = information;
         this.status = status;
         this.registerAt = registerAt;
         this.readAt = readAt;
@@ -122,6 +124,10 @@ public class Book {
 
     public String getPublishedDate() {
         return publishedDate;
+    }
+
+    public String getInformation() {
+        return information;
     }
 
     public BookStatus getStatus() {

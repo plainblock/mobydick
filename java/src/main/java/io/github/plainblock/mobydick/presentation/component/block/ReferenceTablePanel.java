@@ -50,6 +50,10 @@ public class ReferenceTablePanel extends JPanel {
     }
 
     private void setSelectedValue(int index) {
+        if (index < 0) {
+            initSelectedValue();
+            return;
+        }
         Object title = referenceTable.getValueAt(index, 0);
         Object author = referenceTable.getValueAt(index, 1);
         Object publisher = referenceTable.getValueAt(index, 2);
@@ -67,12 +71,7 @@ public class ReferenceTablePanel extends JPanel {
         TableModel model = new DefaultTableModel(COLUMNS, 10);
         referenceTable = new CustomTable(model);
         referenceTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        referenceTable.getSelectionModel().addListSelectionListener(event -> {
-            int index = referenceTable.getSelectedRow();
-            if (index >= 0) {
-                setSelectedValue(index);
-            }
-        });
+        referenceTable.getSelectionModel().addListSelectionListener(event -> setSelectedValue(referenceTable.getSelectedRow()));
 
         // Setting pane
         JScrollPane scrollPane = new JScrollPane(referenceTable);
@@ -89,6 +88,7 @@ public class ReferenceTablePanel extends JPanel {
         titleLabel.setText("題名：");
         authorLabel.setText("著者：");
         publisherLabel.setText("出版社：");
+        publishedDateLabel.setText("出版日：");
         isbnLabel.setText("ISBN：");
     }
 

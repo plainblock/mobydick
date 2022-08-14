@@ -34,6 +34,9 @@ public class BookTable {
     @Column(name = "published_date")
     private String publishedDate;
 
+    @Column(name = "information")
+    private String information;
+
     @Column(name = "status")
     private int status;
 
@@ -45,9 +48,9 @@ public class BookTable {
 
     public Book toEntity() {
         if (isbn == null || isbn.isBlank()) {
-            return new Book(new BookId(id), null, title, author, publisher, publishedDate, BookStatus.fromCode(status), registerAt, readAt);
+            return new Book(new BookId(id), null, title, author, publisher, publishedDate, information, BookStatus.fromCode(status), registerAt, readAt);
         }
-        return new Book(new BookId(id), new ISBN(isbn), title, author, publisher, publishedDate, BookStatus.fromCode(status), registerAt, readAt);
+        return new Book(new BookId(id), new ISBN(isbn), title, author, publisher, publishedDate, information, BookStatus.fromCode(status), registerAt, readAt);
     }
 
     public static BookTable fromEntity(Book book) {
@@ -58,6 +61,7 @@ public class BookTable {
         table.author = book.getAuthor();
         table.publisher = book.getPublisher();
         table.publishedDate = book.getPublishedDate();
+        table.information = book.getInformation();
         table.status = book.getStatus().code();
         table.registerAt = book.getRegisterAt();
         table.readAt = book.getReadAt();
