@@ -1,4 +1,4 @@
-package io.github.plainblock.mobydick.presentation.component;
+package io.github.plainblock.mobydick.presentation.component.block;
 
 import java.awt.Color;
 import java.awt.GridBagConstraints;

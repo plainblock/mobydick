@@ -6,10 +6,10 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
-import io.github.plainblock.mobydick.presentation.component.ManagementButtonPanel;
-import io.github.plainblock.mobydick.presentation.component.ManagementFormPanel;
-import io.github.plainblock.mobydick.presentation.component.ManagementTablePanel;
-import io.github.plainblock.mobydick.presentation.component.ProcessResultPanel;
+import io.github.plainblock.mobydick.presentation.component.block.ManagementButtonPanel;
+import io.github.plainblock.mobydick.presentation.component.block.ManagementFormPanel;
+import io.github.plainblock.mobydick.presentation.component.block.ManagementTablePanel;
+import io.github.plainblock.mobydick.presentation.component.block.ProcessResultPanel;
 
 public class ManagementView extends JPanel {
 

@@ -6,10 +6,10 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
-import io.github.plainblock.mobydick.presentation.component.ProcessResultPanel;
-import io.github.plainblock.mobydick.presentation.component.ReferenceButtonPanel;
-import io.github.plainblock.mobydick.presentation.component.ReferenceTablePanel;
-import io.github.plainblock.mobydick.presentation.component.ReferenceFormPanel;
+import io.github.plainblock.mobydick.presentation.component.block.ProcessResultPanel;
+import io.github.plainblock.mobydick.presentation.component.block.ReferenceButtonPanel;
+import io.github.plainblock.mobydick.presentation.component.block.ReferenceTablePanel;
+import io.github.plainblock.mobydick.presentation.component.block.ReferenceFormPanel;
 
 public class ReferenceView extends JPanel {
 
