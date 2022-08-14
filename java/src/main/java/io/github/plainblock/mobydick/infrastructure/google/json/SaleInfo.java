@@ -15,16 +15,16 @@ public class SaleInfo {
     @JsonProperty("isEbook")
     private boolean ebook;
 
-    public String getCountry() {
-        return country;
-    }
+    @JsonProperty("listPrice")
+    private SalePrice listPrice;
 
-    public String getSaleAbility() {
-        return saleAbility;
-    }
+    @JsonProperty("retailPrice")
+    private SalePrice retailPrice;
 
-    public boolean isEbook() {
-        return ebook;
-    }
+    @JsonProperty("buyLink")
+    private String buyLink;
+
+    @JsonProperty("onSaleDate")
+    private String onSaleDate;
 
 }

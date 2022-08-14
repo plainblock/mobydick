@@ -42,36 +42,4 @@ public class GoogleBookItem {
         return new Book(null, new ISBN(isbn), volumeInfo.getTitle(), volumeInfo.getAuthor(), volumeInfo.getPublisher(), volumeInfo.getPublishedDate(), volumeInfo.getPreviewLink(), BookStatus.NOT_PURCHASED, null, null);
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public String getKind() {
-        return kind;
-    }
-
-    public String getEtag() {
-        return etag;
-    }
-
-    public String getSelfLink() {
-        return selfLink;
-    }
-
-    public VolumeInfo getVolumeInfo() {
-        return volumeInfo;
-    }
-
-    public SaleInfo getSaleInfo() {
-        return saleInfo;
-    }
-
-    public AccessInfo getAccessInfo() {
-        return accessInfo;
-    }
-
-    public SearchInfo getSearchInfo() {
-        return searchInfo;
-    }
-
 }

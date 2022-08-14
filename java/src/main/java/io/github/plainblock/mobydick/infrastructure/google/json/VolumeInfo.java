@@ -29,17 +29,26 @@ public class VolumeInfo {
     @JsonProperty("industryIdentifiers")
     private List<IndustryIdentifier> industryIdentifiers;
 
-    @JsonProperty("readingModes")
-    private ReadingMode readingModes;
-
     @JsonProperty("pageCount")
     private int pageCount;
+
+    @JsonProperty("dimensions")
+    private Dimension dimension;
+
+    @JsonProperty("readingModes")
+    private ReadingMode readingMode;
 
     @JsonProperty("printType")
     private String printType;
 
     @JsonProperty("categories")
     private List<String> categories;
+
+    @JsonProperty("averageRating")
+    private double averageRating;
+
+    @JsonProperty("ratingsCount")
+    private int ratingsCount;
 
     @JsonProperty("maturityRating")
     private String maturityRating;
@@ -50,8 +59,14 @@ public class VolumeInfo {
     @JsonProperty("contentVersion")
     private String contentVersion;
 
+    @JsonProperty("imageLinks")
+    private ImageLink imageLink;
+
     @JsonProperty("language")
     private String language;
+
+    @JsonProperty("mainCategory")
+    private String mainCategory;
 
     @JsonProperty("previewLink")
     private String previewLink;
@@ -64,14 +79,6 @@ public class VolumeInfo {
 
     public String getTitle() {
         return title;
-    }
-
-    public String getSubtitle() {
-        return subtitle;
-    }
-
-    public List<String> getAuthors() {
-        return authors;
     }
 
     public String getAuthor() {
@@ -97,67 +104,23 @@ public class VolumeInfo {
         return publishedDate;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public List<IndustryIdentifier> getIndustryIdentifiers() {
-        return industryIdentifiers;
-    }
-
     public String getISBN() {
         if (industryIdentifiers == null || industryIdentifiers.isEmpty()) {
             return null;
         }
         String isbn10 = null;
         for (IndustryIdentifier ii : industryIdentifiers) {
-            if (ii.getType().equals("ISBN_13")) {
+            if (ii.getType().equals(IndustryIdentifier.IndustryIdentifierType.ISBN_13.name())) {
                 return ii.getIdentifier();
-            } else if (ii.getType().equals("ISBN_10")) {
+            } else if (ii.getType().equals(IndustryIdentifier.IndustryIdentifierType.ISBN_10.name())) {
                 isbn10 = ii.getIdentifier();
             }
         }
         return isbn10;
     }
 
-    public ReadingMode getReadingModes() {
-        return readingModes;
-    }
-
-    public int getPageCount() {
-        return pageCount;
-    }
-
-    public String getPrintType() {
-        return printType;
-    }
-
-    public String getMaturityRating() {
-        return maturityRating;
-    }
-
-    public boolean isAllowAnonLogging() {
-        return allowAnonLogging;
-    }
-
-    public String getContentVersion() {
-        return contentVersion;
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
     public String getPreviewLink() {
         return previewLink;
-    }
-
-    public String getInfoLink() {
-        return infoLink;
-    }
-
-    public String getCanonicalVolumeLink() {
-        return canonicalVolumeLink;
     }
 
 }

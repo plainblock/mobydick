@@ -4,9 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SearchInfo {
+public class SalePrice {
 
-    @JsonProperty("textSnippet")
-    private String textSnippet;
+    @JsonProperty("amount")
+    private double amount;
+
+    @JsonProperty("currencyCode")
+    private String currencyCode;
 
 }
