@@ -59,6 +59,10 @@ public class ReferenceController extends BaseController {
         referenceView.setProcessTime(
                 measureTime(() -> {
                     int index = referenceView.getSelectedIndex();
+                    if (index < 0) {
+                        setIndexErrorMessage();
+                        return;
+                    }
                     Book book = referenceService.getFetchedBooks().get(index);
                     BookStatus status = BookStatus.fromLabel(referenceView.getStatusValue());
                     String message = managementService.registerBook(book, status);
@@ -77,6 +81,10 @@ public class ReferenceController extends BaseController {
             }
             referenceView.setTableData(data);
         }
+    }
+
+    private void setIndexErrorMessage() {
+        referenceView.setResultMessage("登録する書籍を選択してください");
     }
 
 }

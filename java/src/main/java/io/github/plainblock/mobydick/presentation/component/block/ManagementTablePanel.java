@@ -13,7 +13,7 @@ import io.github.plainblock.mobydick.presentation.component.atom.CustomTable;
 
 public class ManagementTablePanel extends JPanel {
 
-    private static final String[] COLUMNS = {"題名", "著者", "出版社", "ステータス"};
+    private static final String[] COLUMNS = {"題名", "著者", "登録日", "読了日", "ステータス"};
 
     private CustomTable managementTable;
 

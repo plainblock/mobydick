@@ -1,5 +1,6 @@
 package io.github.plainblock.mobydick.infrastructure.sqlite.table;
 
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -30,14 +31,23 @@ public class BookTable {
     @Column(name = "publisher")
     private String publisher;
 
+    @Column(name = "published_date")
+    private String publishedDate;
+
     @Column(name = "status")
     private int status;
 
+    @Column(name = "register_at")
+    private Date registerAt;
+
+    @Column(name = "read_at")
+    private Date readAt;
+
     public Book toEntity() {
         if (isbn == null || isbn.isBlank()) {
-            return new Book(new BookId(id), null, title, author, publisher, BookStatus.fromCode(status));
+            return new Book(new BookId(id), null, title, author, publisher, publishedDate, BookStatus.fromCode(status), registerAt, readAt);
         }
-        return new Book(new BookId(id), new ISBN(isbn), title, author, publisher, BookStatus.fromCode(status));
+        return new Book(new BookId(id), new ISBN(isbn), title, author, publisher, publishedDate, BookStatus.fromCode(status), registerAt, readAt);
     }
 
     public static BookTable fromEntity(Book book) {
@@ -47,7 +57,10 @@ public class BookTable {
         table.title = book.getTitle();
         table.author = book.getAuthor();
         table.publisher = book.getPublisher();
+        table.publishedDate = book.getPublishedDate();
         table.status = book.getStatus().code();
+        table.registerAt = book.getRegisterAt();
+        table.readAt = book.getReadAt();
         return table;
     }
 

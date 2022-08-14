@@ -97,6 +97,10 @@ public class VolumeInfo {
         return publishedDate;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public List<IndustryIdentifier> getIndustryIdentifiers() {
         return industryIdentifiers;
     }

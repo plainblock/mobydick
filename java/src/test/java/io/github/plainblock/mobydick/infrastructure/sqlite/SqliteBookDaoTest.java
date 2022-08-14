@@ -1,5 +1,6 @@
 package io.github.plainblock.mobydick.infrastructure.sqlite;
 
+import java.util.Date;
 import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
@@ -19,7 +20,7 @@ public class SqliteBookDaoTest {
         List<Book> books = dao.filterBooks("Moby", null, null, null, null);
         books.forEach(b -> {
             Assertions.assertNotNull(b);
-            System.out.println("[title: " + b.getTitle() + ", author: " + b.getAuthor() + ", publisher: " + b.getPublisher() + "]");
+            System.out.println("[title: " + b.getTitle() + ", author: " + b.getAuthor() + ", publisher: " + b.getPublisher() + ", publishedDate: " + b.getPublishedDate() + "]");
         });
     }
 
@@ -28,35 +29,38 @@ public class SqliteBookDaoTest {
         List<Book> books = dao.getAllBooks();
         books.forEach(b -> {
             Assertions.assertNotNull(b);
-            System.out.println("[title: " + b.getTitle() + ", author: " + b.getAuthor() + ", publisher: " + b.getPublisher() + "]");
+            System.out.println("[title: " + b.getTitle() + ", author: " + b.getAuthor() + ", publisher: " + b.getPublisher() + ", publishedDate: " + b.getPublishedDate() + "]");
         });
     }
 
     @Test
     void getBookTest() {
         Book book = dao.getBook(new BookId("SAMPLE")).orElseThrow();
-        System.out.println("[title: " + book.getTitle() + ", author: " + book.getAuthor() + ", publisher: " + book.getPublisher() + "]");
+        System.out.println("[title: " + book.getTitle() + ", author: " + book.getAuthor() + ", publisher: " + book.getPublisher() + ", publishedDate: " + book.getPublishedDate() + "]");
     }
 
     @Test
     void createTest() {
-        Book target = new Book(new BookId("TEST"), new ISBN("1234567890"), "title", "author", "publisher", BookStatus.NOT_YET_READ);
+        Date now = new Date();
+        Book target = new Book(new BookId("TEST"), new ISBN("1234567890"), "title", "author", "publisher", "2022-01-01", BookStatus.NOT_YET_READ, now, null);
         Book result = dao.persist(target);
         Assertions.assertNotNull(result);
-        System.out.println("[title: " + result.getTitle() + ", author: " + result.getAuthor() + ", publisher: " + result.getPublisher() + "]");
+        System.out.println("[title: " + result.getTitle() + ", author: " + result.getAuthor() + ", publisher: " + result.getPublisher() + ", publishedDate: " + result.getPublishedDate() + "]");
     }
 
     @Test
     void updateTest() {
-        Book target = new Book(new BookId("TEST"), new ISBN("1234567890"), "test-title", "test-author", "test-publisher", BookStatus.ALREADY_READ);
+        Date now = new Date();
+        Book target = new Book(new BookId("TEST"), new ISBN("1234567890"), "test-title", "test-author", "test-publisher", "2022-07-01", BookStatus.ALREADY_READ, now, now);
         Book result = dao.persist(target);
         Assertions.assertNotNull(result);
-        System.out.println("[title: " + result.getTitle() + ", author: " + result.getAuthor() + ", publisher: " + result.getPublisher() + "]");
+        System.out.println("[title: " + result.getTitle() + ", author: " + result.getAuthor() + ", publisher: " + result.getPublisher() + ", publishedDate: " + result.getPublishedDate() + "]");
     }
 
     @Test
     void deleteTest() {
-        Book target = new Book(new BookId("TEST"), new ISBN("1234567890"), "test-title", "test-author", "test-publisher", BookStatus.ALREADY_READ);
+        Date now = new Date();
+        Book target = new Book(new BookId("TEST"), new ISBN("1234567890"), "test-title", "test-author", "test-publisher", "2022-07-01", BookStatus.ALREADY_READ, now, now);
         dao.truncate(target);
         Assertions.assertTrue(dao.getBook(new BookId("TEST")).isEmpty());
     }

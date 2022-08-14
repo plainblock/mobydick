@@ -15,12 +15,13 @@ import io.github.plainblock.mobydick.presentation.component.atom.CustomTextLabel
 
 public class ReferenceTablePanel extends JPanel {
 
-    private static final String[] COLUMNS = {"題名", "著者", "出版社", "ISBN"};
+    private static final String[] COLUMNS = {"題名", "著者", "出版社", "出版日", "ISBN"};
 
     private CustomTable referenceTable;
     private CustomTextLabel titleLabel;
     private CustomTextLabel authorLabel;
     private CustomTextLabel publisherLabel;
+    private CustomTextLabel publishedDateLabel;
     private CustomTextLabel isbnLabel;
 
     public ReferenceTablePanel() {
@@ -31,6 +32,7 @@ public class ReferenceTablePanel extends JPanel {
         initTitleLabel(layout);
         initAuthorLabel(layout);
         initPublisherLabel(layout);
+        initPublishedDateLabel(layout);
         initIsbnLabel(layout);
         initSelectedValue();
     }
@@ -51,10 +53,12 @@ public class ReferenceTablePanel extends JPanel {
         Object title = referenceTable.getValueAt(index, 0);
         Object author = referenceTable.getValueAt(index, 1);
         Object publisher = referenceTable.getValueAt(index, 2);
-        Object isbn = referenceTable.getValueAt(index, 3);
+        Object publishedDate = referenceTable.getValueAt(index, 3);
+        Object isbn = referenceTable.getValueAt(index, 4);
         titleLabel.setText(String.format("題名：%s", title != null ? title : ""));
         authorLabel.setText(String.format("著者：%s", author != null ? author : ""));
         publisherLabel.setText(String.format("出版社：%s", publisher != null ? publisher : ""));
+        publishedDateLabel.setText(String.format("出版日：%s", publishedDate != null ? publishedDate : ""));
         isbnLabel.setText(String.format("ISBN：%s", isbn != null ? isbn : ""));
     }
 
@@ -118,10 +122,20 @@ public class ReferenceTablePanel extends JPanel {
         add(publisherLabel);
     }
 
+    private void initPublishedDateLabel(GridBagLayout layout) {
+        publishedDateLabel = new CustomTextLabel();
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridy = 4;
+        gbc.insets = new Insets(0, 10, 0, 0);
+        gbc.anchor = GridBagConstraints.WEST;
+        layout.setConstraints(publishedDateLabel, gbc);
+        add(publishedDateLabel);
+    }
+
     private void initIsbnLabel(GridBagLayout layout) {
         isbnLabel = new CustomTextLabel();
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         gbc.insets = new Insets(0, 10, 0, 0);
         gbc.anchor = GridBagConstraints.WEST;
         layout.setConstraints(isbnLabel, gbc);

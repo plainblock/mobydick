@@ -58,6 +58,10 @@ public class ManagementController extends BaseController {
         managementView.setProcessTime(
                 measureTime(() -> {
                     int index = managementView.getSelectedIndex();
+                    if (index < 0) {
+                        setIndexErrorMessage();
+                        return;
+                    }
                     Book book = managementService.getManagedBooks().get(index);
                     String message = managementService.updateBookStatus(book, BookStatus.NOT_PURCHASED);
                     setBookData(managementService.getManagedBooks());
@@ -70,6 +74,10 @@ public class ManagementController extends BaseController {
         managementView.setProcessTime(
                 measureTime(() -> {
                     int index = managementView.getSelectedIndex();
+                    if (index < 0) {
+                        setIndexErrorMessage();
+                        return;
+                    }
                     Book book = managementService.getManagedBooks().get(index);
                     String message = managementService.updateBookStatus(book, BookStatus.NOT_YET_READ);
                     setBookData(managementService.getManagedBooks());
@@ -82,6 +90,10 @@ public class ManagementController extends BaseController {
         managementView.setProcessTime(
                 measureTime(() -> {
                     int index = managementView.getSelectedIndex();
+                    if (index < 0) {
+                        setIndexErrorMessage();
+                        return;
+                    }
                     Book book = managementService.getManagedBooks().get(index);
                     String message = managementService.updateBookStatus(book, BookStatus.ALREADY_READ);
                     setBookData(managementService.getManagedBooks());
@@ -101,4 +113,9 @@ public class ManagementController extends BaseController {
             managementView.setTableData(data);
         }
     }
+
+    private void setIndexErrorMessage() {
+        managementView.setResultMessage("更新する書籍を選択してください");
+    }
+
 }
