@@ -20,13 +20,13 @@ public class ReferenceService extends BaseService {
         return fetchedBooks;
     }
 
-    public String findWithCondition(String title, String author, String publisher) {
+    public String findWithCondition(String title, String author, String publisher, int number, int page) {
         try {
-            fetchedBooks = external.searchBooks(title, author, publisher);
+            fetchedBooks = external.searchBooks(title, author, publisher, number, page);
             if (fetchedBooks.isEmpty()) {
                 return "条件にあう書籍が見つかりませんでした";
             }
-            return String.format("%d件見つかりました", fetchedBooks.size());
+            return "";
         } catch (Exception e) {
             return formatErrorMessage(e);
         }

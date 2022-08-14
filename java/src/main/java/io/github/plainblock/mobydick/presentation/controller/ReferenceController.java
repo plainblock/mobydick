@@ -5,6 +5,7 @@ import java.util.List;
 
 import io.github.plainblock.mobydick.domain.model.entity.Book;
 import io.github.plainblock.mobydick.domain.model.object.BookStatus;
+import io.github.plainblock.mobydick.presentation.component.block.ReferenceTablePanel;
 import io.github.plainblock.mobydick.presentation.view.ReferenceView;
 import io.github.plainblock.mobydick.service.ManagementService;
 import io.github.plainblock.mobydick.service.ReferenceService;
@@ -12,17 +13,25 @@ import io.github.plainblock.mobydick.service.ReferenceService;
 public class ReferenceController extends BaseController {
 
     private static final String FETCH = "fetch";
+    private static final String BACK = "back";
+    private static final String NEXT = "next";
     private static final String REGISTER = "register";
 
     private final ReferenceService referenceService;
     private final ManagementService managementService;
     private final ReferenceView referenceView;
 
+    private String titleCache = "";
+    private String authorCache = "";
+    private String publisherCache = "";
+
     public ReferenceController(ReferenceService referenceService, ManagementService managementService, ReferenceView referenceView) {
         this.referenceService = referenceService;
         this.managementService = managementService;
         this.referenceView = referenceView;
         this.referenceView.initFetchAction(this, FETCH);
+        this.referenceView.initBackAction(this, BACK);
+        this.referenceView.initNextAction(this, NEXT);
         this.referenceView.initRegisterAction(this, REGISTER);
     }
 
@@ -34,6 +43,8 @@ public class ReferenceController extends BaseController {
     public void actionPerformed(ActionEvent event) {
         switch (event.getActionCommand()) {
             case FETCH -> onFetch();
+            case BACK -> onBack();
+            case NEXT -> onNext();
             case REGISTER -> onRegister();
         }
     }
@@ -41,15 +52,48 @@ public class ReferenceController extends BaseController {
     private void onFetch() {
         referenceView.setProcessTime(
                 measureTime(() -> {
-                    String title = referenceView.getTitleValue();
-                    String author = referenceView.getAuthorValue();
-                    String publisher = referenceView.getPublisherValue();
-                    if (title.isBlank() && author.isBlank() && publisher.isBlank()) {
+                    titleCache = referenceView.getTitleValue();
+                    authorCache = referenceView.getAuthorValue();
+                    publisherCache = referenceView.getPublisherValue();
+                    if (titleCache.isBlank() && authorCache.isBlank() && publisherCache.isBlank()) {
                         referenceView.setResultMessage("検索条件を入力してください");
                         return;
                     }
-                    String message = referenceService.findWithCondition(title, author, publisher);
-                    setBookData(referenceService.getFetchedBooks());
+                    String message = referenceService.findWithCondition(titleCache, authorCache, publisherCache, ReferenceTablePanel.ROW_COUNT, 1);
+                    setBookData(referenceService.getFetchedBooks(), 1);
+                    referenceView.setResultMessage(message);
+                })
+        );
+    }
+
+    private void onBack() {
+        referenceView.setProcessTime(
+                measureTime(() -> {
+                    int page = referenceView.getSelectedPage();
+                    if (page <= 1) {
+                        return;
+                    }
+                    page --;
+                    String message = referenceService.findWithCondition(titleCache, authorCache, publisherCache, ReferenceTablePanel.ROW_COUNT, page);
+                    setBookData(referenceService.getFetchedBooks(), page);
+                    referenceView.setResultMessage(message);
+                })
+        );
+    }
+
+    private void onNext() {
+        referenceView.setProcessTime(
+                measureTime(() -> {
+                    int page = referenceView.getSelectedPage();
+                    if (page == 0) {
+                        return;
+                    }
+                    if (referenceService.getFetchedBooks().size() < ReferenceTablePanel.ROW_COUNT) {
+                        return;
+                    }
+                    page ++;
+                    String message = referenceService.findWithCondition(titleCache, authorCache, publisherCache, ReferenceTablePanel.ROW_COUNT, page);
+                    setBookData(referenceService.getFetchedBooks(), page);
                     referenceView.setResultMessage(message);
                 })
         );
@@ -71,15 +115,15 @@ public class ReferenceController extends BaseController {
         );
     }
 
-    private void setBookData(List<Book> books) {
+    private void setBookData(List<Book> books, int page) {
         if (books == null || books.isEmpty()) {
-            referenceView.setTableData(null);
+            referenceView.setTableData(null, page);
         } else {
             String[][] data = new String[books.size()][4];
             for (int i = 0; i < books.size(); i++) {
                 data[i] = books.get(i).toRowReferenceData();
             }
-            referenceView.setTableData(data);
+            referenceView.setTableData(data, page);
         }
     }
 

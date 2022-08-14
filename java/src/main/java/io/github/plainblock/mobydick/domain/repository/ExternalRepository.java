@@ -10,9 +10,9 @@ public interface ExternalRepository {
 
     List<Book> searchBooks(String title, String author, String publisher);
 
-    List<Book> searchBooks(String title, String author, String publisher, int index);
+    List<Book> searchBooks(String title, String author, String publisher, int page);
 
-    List<Book> searchBooks(String title, String author, String publisher, int number, int index);
+    List<Book> searchBooks(String title, String author, String publisher, int number, int page);
 
     Optional<Book> fetchBook(ISBN isbn);
 

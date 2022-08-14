@@ -32,16 +32,20 @@ public class GoogleBookApi implements ExternalRepository {
 
     @Override
     public List<Book> searchBooks(String title, String author, String publisher) {
-        return searchBooks(title, author, publisher, 10, 0);
+        return searchBooks(title, author, publisher, 10, 1);
     }
 
     @Override
-    public List<Book> searchBooks(String title, String author, String publisher, int index) {
-        return searchBooks(title, author, publisher, 10, index);
+    public List<Book> searchBooks(String title, String author, String publisher, int page) {
+        return searchBooks(title, author, publisher, 10, page);
     }
 
     @Override
-    public List<Book> searchBooks(String title, String author, String publisher, int number, int index) {
+    public List<Book> searchBooks(String title, String author, String publisher, int number, int page) {
+        if (page < 1) {
+            return new ArrayList<>();
+        }
+        int index = (page - 1) * number;
         GoogleBookQuery query = new GoogleBookQuery(null, title, author, publisher, null, null, null, null, number, index);
         GoogleBook result = execute(null, query, GoogleBook.class);
         if (result == null || result.getItems() == null || result.getItems().isEmpty()) {

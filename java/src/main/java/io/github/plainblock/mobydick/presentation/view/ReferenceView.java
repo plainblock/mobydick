@@ -57,8 +57,12 @@ public class ReferenceView extends JPanel {
         return tablePanel.getSelectedIndex();
     }
 
-    public void setTableData(String[][] tableData) {
-        tablePanel.setTableData(tableData);
+    public int getSelectedPage() {
+        return tablePanel.getSelectedPage();
+    }
+
+    public void setTableData(String[][] tableData, int page) {
+        tablePanel.setTableData(tableData, page);
     }
 
     public void setResultMessage(String message) {
@@ -71,6 +75,14 @@ public class ReferenceView extends JPanel {
 
     public void initFetchAction(ActionListener listener, String command) {
         formPanel.initSearchButtonAction(listener, command);
+    }
+
+    public void initBackAction(ActionListener listener, String command) {
+        tablePanel.initBackButtonAction(listener, command);
+    }
+
+    public void initNextAction(ActionListener listener, String command) {
+        tablePanel.initNextButtonAction(listener, command);
     }
 
     public void initRegisterAction(ActionListener listener, String command) {
