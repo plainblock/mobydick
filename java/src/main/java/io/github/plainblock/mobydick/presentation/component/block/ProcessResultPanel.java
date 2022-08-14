@@ -1,5 +1,6 @@
 package io.github.plainblock.mobydick.presentation.component.block;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.JPanel;
@@ -30,7 +31,7 @@ public class ProcessResultPanel extends JPanel {
     }
 
     private void initResultMessage(GridBagLayout layout) {
-        resultMessage = new CustomTextLabel();
+        resultMessage = new CustomTextLabel(Color.RED);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 1;
         layout.setConstraints(resultMessage, gbc);
@@ -38,7 +39,7 @@ public class ProcessResultPanel extends JPanel {
     }
 
     private void initProcessTime(GridBagLayout layout) {
-        processTime = new CustomTextLabel();
+        processTime = new CustomTextLabel(Color.GRAY);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.anchor = GridBagConstraints.EAST;
