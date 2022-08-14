@@ -54,7 +54,7 @@ public class ReferenceController extends BaseController {
     }
 
     private void onFetch() {
-        LOGGER.info("Execute ReferenceController.onFetch");
+        LOGGER.info("onFetch");
         try {
             referenceView.setProcessTime(
                     measureTime(() -> {
@@ -76,7 +76,7 @@ public class ReferenceController extends BaseController {
     }
 
     private void onBack() {
-        LOGGER.info("Execute ReferenceController.onBack");
+        LOGGER.info("onBack");
         try {
             referenceView.setProcessTime(
                     measureTime(() -> {
@@ -96,7 +96,7 @@ public class ReferenceController extends BaseController {
     }
 
     private void onNext() {
-        LOGGER.info("Execute ReferenceController.onNext");
+        LOGGER.info("onNext");
         try {
             referenceView.setProcessTime(
                     measureTime(() -> {
@@ -119,7 +119,7 @@ public class ReferenceController extends BaseController {
     }
 
     private void onRegister() {
-        LOGGER.info("Execute ReferenceController.onRegister");
+        LOGGER.info("onRegister");
         try {
             referenceView.setProcessTime(
                     measureTime(() -> {

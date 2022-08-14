@@ -48,7 +48,7 @@ public class ManagementController extends BaseController {
     }
 
     private void onGet() {
-        LOGGER.info("Execute ManagementController.onGet");
+        LOGGER.info("onGet");
         try {
             managementView.setProcessTime(
                     measureTime(() -> {
@@ -65,7 +65,7 @@ public class ManagementController extends BaseController {
     }
 
     private void onWantToRead() {
-        LOGGER.info("Execute ManagementController.onWantToRead");
+        LOGGER.info("onWantToRead");
         try {
             managementView.setProcessTime(
                     measureTime(() -> {
@@ -86,7 +86,7 @@ public class ManagementController extends BaseController {
     }
 
     private void onNotYetRead() {
-        LOGGER.info("Execute ManagementController.onNotYetRead");
+        LOGGER.info("onNotYetRead");
         try {
             managementView.setProcessTime(
                     measureTime(() -> {
@@ -107,7 +107,7 @@ public class ManagementController extends BaseController {
     }
 
     private void onAlreadyRead() {
-        LOGGER.info("Execute ManagementController.onAlreadyRead");
+        LOGGER.info("onAlreadyRead");
         try {
             managementView.setProcessTime(
                     measureTime(() -> {

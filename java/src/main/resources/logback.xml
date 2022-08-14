@@ -5,8 +5,10 @@
         </encoder>
     </appender>
 
+    <logger name="io.github.plainblock.mobydick" level="INFO" />
     <logger name="org.hibernate" level="INFO" />
-    <logger name="org.hibernate.SQL" level="DEBUG" />
+    <logger name="org.hibernate.SQL" level="INFO" />
+    <logger name="org.jboss.logging" level="INFO" />
 
     <root level="debug">
         <appender-ref ref="STDOUT" />

@@ -67,7 +67,7 @@ public class GoogleBookApi implements ExternalRepository {
     private <T> T execute(String id, GoogleBookQuery query, Class<T> clazz) {
         try {
             URL url = setupURL(id, query);
-            LOGGER.debug("GET " + url);
+            LOGGER.info("GET " + url);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestProperty("accept", "application/json");
             InputStream response = connection.getInputStream();
