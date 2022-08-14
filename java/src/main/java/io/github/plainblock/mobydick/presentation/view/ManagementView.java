@@ -34,7 +34,7 @@ public class ManagementView extends JPanel {
         add(tablePanel);
         add(Box.createRigidArea(new Dimension(1,10)));
         add(buttonPanel);
-        add(Box.createRigidArea(new Dimension(1,1)));
+        add(Box.createRigidArea(new Dimension(1,5)));
         add(resultPanel);
     }
 
