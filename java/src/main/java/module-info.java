@@ -22,4 +22,5 @@ module mobydick {
     exports io.github.plainblock.mobydick.presentation.component;
     exports io.github.plainblock.mobydick.presentation.controller;
     exports io.github.plainblock.mobydick.presentation.view;
+    exports io.github.plainblock.mobydick.presentation.component.atom;
 }

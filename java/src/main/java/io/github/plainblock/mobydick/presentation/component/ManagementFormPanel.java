@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 
 import io.github.plainblock.mobydick.domain.model.object.BookStatus;
+import io.github.plainblock.mobydick.presentation.component.atom.CustomTextField;
 
 public class ManagementFormPanel extends JPanel {
 

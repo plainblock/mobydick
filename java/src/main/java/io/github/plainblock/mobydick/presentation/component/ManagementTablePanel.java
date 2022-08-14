@@ -1,8 +1,7 @@
 package io.github.plainblock.mobydick.presentation.component;
 
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -18,9 +17,8 @@ public class ManagementTablePanel extends JPanel {
 
     public ManagementTablePanel() {
         super();
-        GridBagLayout layout = new GridBagLayout();
-        setLayout(layout);
-        initManagementTable(layout);
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        initManagementTable();
     }
 
     public int getSelectedIndex() {
@@ -35,15 +33,14 @@ public class ManagementTablePanel extends JPanel {
         managementTable.setModel(new DefaultTableModel(tableData, COLUMNS));
     }
 
-    private void initManagementTable(GridBagLayout layout) {
+    private void initManagementTable() {
         TableModel model = new DefaultTableModel(COLUMNS, 10);
         managementTable = new JTable(model);
         managementTable.setAutoCreateRowSorter(true);
         managementTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane managementTablePane = new JScrollPane(managementTable);
-        managementTablePane.setPreferredSize(new Dimension(500, 100));
-        GridBagConstraints gbc = new GridBagConstraints();
-        layout.setConstraints(managementTablePane, gbc);
+        managementTablePane.setPreferredSize(new Dimension(600, 300));
+        managementTablePane.setMaximumSize(new Dimension(600, 300));
         add(managementTablePane);
     }
 

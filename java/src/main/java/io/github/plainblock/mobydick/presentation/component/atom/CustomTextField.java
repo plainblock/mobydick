@@ -1,4 +1,4 @@
-package io.github.plainblock.mobydick.presentation.component;
+package io.github.plainblock.mobydick.presentation.component.atom;
 
 import javax.swing.JTextField;
 import javax.swing.event.UndoableEditEvent;

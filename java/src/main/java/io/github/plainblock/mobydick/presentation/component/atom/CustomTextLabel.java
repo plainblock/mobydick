@@ -1,4 +1,4 @@
-package io.github.plainblock.mobydick.presentation.component;
+package io.github.plainblock.mobydick.presentation.component.atom;
 
 import java.awt.Font;
 import javax.swing.JLabel;

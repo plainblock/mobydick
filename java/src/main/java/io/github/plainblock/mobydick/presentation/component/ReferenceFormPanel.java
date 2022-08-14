@@ -4,8 +4,10 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import io.github.plainblock.mobydick.presentation.component.atom.CustomTextField;
+import io.github.plainblock.mobydick.presentation.component.atom.CustomTextLabel;
 
 public class ReferenceFormPanel extends JPanel {
 
@@ -17,7 +19,7 @@ public class ReferenceFormPanel extends JPanel {
     public ReferenceFormPanel() {
         super();
         GridBagLayout layout = new GridBagLayout();
-        layout.columnWidths = new int[]{100, 300, 100};
+        layout.columnWidths = new int[]{100, 400, 100};
         layout.rowHeights = new int[]{30, 30, 30};
         setLayout(layout);
         initTitleInput(layout);
@@ -45,7 +47,7 @@ public class ReferenceFormPanel extends JPanel {
 
     private void initTitleInput(GridBagLayout layout) {
         // Initialize label
-        JLabel titleInputLabel = new JLabel("題名");
+        CustomTextLabel titleInputLabel = new CustomTextLabel("題名");
         GridBagConstraints labelConst = new GridBagConstraints();
         labelConst.gridx = 0;
         labelConst.gridy = 0;
@@ -64,7 +66,7 @@ public class ReferenceFormPanel extends JPanel {
 
     private void initAuthorInput(GridBagLayout layout) {
         // Initialize label
-        JLabel authorInputLabel = new JLabel("著者");
+        CustomTextLabel authorInputLabel = new CustomTextLabel("著者");
         GridBagConstraints labelConst = new GridBagConstraints();
         labelConst.gridx = 0;
         labelConst.gridy = 1;
@@ -83,7 +85,7 @@ public class ReferenceFormPanel extends JPanel {
 
     private void initPublisherInput(GridBagLayout layout) {
         // Initialize label
-        JLabel publisherInputLabel = new JLabel("出版社");
+        CustomTextLabel publisherInputLabel = new CustomTextLabel("出版社");
         GridBagConstraints labelConst = new GridBagConstraints();
         labelConst.gridx = 0;
         labelConst.gridy = 2;

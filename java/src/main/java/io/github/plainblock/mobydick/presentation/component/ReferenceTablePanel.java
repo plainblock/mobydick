@@ -11,6 +11,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import io.github.plainblock.mobydick.presentation.component.atom.CustomTextLabel;
+
 public class ReferenceTablePanel extends JPanel {
 
     private static final String[] COLUMNS = {"題名", "著者", "出版社", "ISBN"};
