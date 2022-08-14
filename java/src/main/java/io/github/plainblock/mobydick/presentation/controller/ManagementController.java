@@ -3,6 +3,9 @@ package io.github.plainblock.mobydick.presentation.controller;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import io.github.plainblock.mobydick.domain.model.entity.Book;
 import io.github.plainblock.mobydick.domain.model.object.BookStatus;
 import io.github.plainblock.mobydick.presentation.view.ManagementView;
@@ -10,6 +13,7 @@ import io.github.plainblock.mobydick.service.ManagementService;
 
 public class ManagementController extends BaseController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(ManagementController.class);
     private static final String GET = "get";
     private static final String NOT_PURCHASED = "notPurchased";
     private static final String NOT_YET_READ = "notYetRead";
@@ -43,63 +47,83 @@ public class ManagementController extends BaseController {
     }
 
     private void onGet() {
-        managementView.setProcessTime(
-                measureTime(() -> {
-                    String keyword = managementView.getKeywordValue();
-                    BookStatus status = BookStatus.fromLabel(managementView.getStatusValue());
-                    String message = managementService.loadBooks(keyword, status);
-                    setBookData(managementService.getManagedBooks());
-                    managementView.setResultMessage(message);
-                })
-        );
+        LOGGER.info("Execute ManagementController.onGet");
+        try {
+            managementView.setProcessTime(
+                    measureTime(() -> {
+                        String keyword = managementView.getKeywordValue();
+                        BookStatus status = BookStatus.fromLabel(managementView.getStatusValue());
+                        String message = managementService.loadBooks(keyword, status);
+                        setBookData(managementService.getManagedBooks());
+                        managementView.setResultMessage(message);
+                    })
+            );
+        } catch (Exception e) {
+            LOGGER.error("Error occurred!", e);
+        }
     }
 
     private void onWantToRead() {
-        managementView.setProcessTime(
-                measureTime(() -> {
-                    int index = managementView.getSelectedIndex();
-                    if (index < 0) {
-                        setIndexErrorMessage();
-                        return;
-                    }
-                    Book book = managementService.getManagedBooks().get(index);
-                    String message = managementService.updateBookStatus(book, BookStatus.NOT_PURCHASED);
-                    setBookData(managementService.getManagedBooks());
-                    managementView.setResultMessage(message);
-                })
-        );
+        LOGGER.info("Execute ManagementController.onWantToRead");
+        try {
+            managementView.setProcessTime(
+                    measureTime(() -> {
+                        int index = managementView.getSelectedIndex();
+                        if (index < 0) {
+                            setIndexErrorMessage();
+                            return;
+                        }
+                        Book book = managementService.getManagedBooks().get(index);
+                        String message = managementService.updateBookStatus(book, BookStatus.NOT_PURCHASED);
+                        setBookData(managementService.getManagedBooks());
+                        managementView.setResultMessage(message);
+                    })
+            );
+        } catch (Exception e) {
+            LOGGER.error("Error occurred!", e);
+        }
     }
 
     private void onNotYetRead() {
-        managementView.setProcessTime(
-                measureTime(() -> {
-                    int index = managementView.getSelectedIndex();
-                    if (index < 0) {
-                        setIndexErrorMessage();
-                        return;
-                    }
-                    Book book = managementService.getManagedBooks().get(index);
-                    String message = managementService.updateBookStatus(book, BookStatus.NOT_YET_READ);
-                    setBookData(managementService.getManagedBooks());
-                    managementView.setResultMessage(message);
-                })
-        );
+        LOGGER.info("Execute ManagementController.onNotYetRead");
+        try {
+            managementView.setProcessTime(
+                    measureTime(() -> {
+                        int index = managementView.getSelectedIndex();
+                        if (index < 0) {
+                            setIndexErrorMessage();
+                            return;
+                        }
+                        Book book = managementService.getManagedBooks().get(index);
+                        String message = managementService.updateBookStatus(book, BookStatus.NOT_YET_READ);
+                        setBookData(managementService.getManagedBooks());
+                        managementView.setResultMessage(message);
+                    })
+            );
+        } catch (Exception e) {
+            LOGGER.error("Error occurred!", e);
+        }
     }
 
     private void onAlreadyRead() {
-        managementView.setProcessTime(
-                measureTime(() -> {
-                    int index = managementView.getSelectedIndex();
-                    if (index < 0) {
-                        setIndexErrorMessage();
-                        return;
-                    }
-                    Book book = managementService.getManagedBooks().get(index);
-                    String message = managementService.updateBookStatus(book, BookStatus.ALREADY_READ);
-                    setBookData(managementService.getManagedBooks());
-                    managementView.setResultMessage(message);
-                })
-        );
+        LOGGER.info("Execute ManagementController.onAlreadyRead");
+        try {
+            managementView.setProcessTime(
+                    measureTime(() -> {
+                        int index = managementView.getSelectedIndex();
+                        if (index < 0) {
+                            setIndexErrorMessage();
+                            return;
+                        }
+                        Book book = managementService.getManagedBooks().get(index);
+                        String message = managementService.updateBookStatus(book, BookStatus.ALREADY_READ);
+                        setBookData(managementService.getManagedBooks());
+                        managementView.setResultMessage(message);
+                    })
+            );
+        } catch (Exception e) {
+            LOGGER.error("Error occurred!", e);
+        }
     }
 
     private void setBookData(List<Book> books) {
