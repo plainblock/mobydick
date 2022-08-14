@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -17,10 +16,10 @@ public class ReferenceTablePanel extends JPanel {
     private static final String[] COLUMNS = {"題名", "著者", "出版社", "ISBN"};
 
     private JTable referenceTable;
-    private JLabel titleLabel;
-    private JLabel authorLabel;
-    private JLabel publisherLabel;
-    private JLabel isbnLabel;
+    private CustomTextLabel titleLabel;
+    private CustomTextLabel authorLabel;
+    private CustomTextLabel publisherLabel;
+    private CustomTextLabel isbnLabel;
 
     public ReferenceTablePanel() {
         super();
@@ -69,10 +68,13 @@ public class ReferenceTablePanel extends JPanel {
                 setSelectedValue(index);
             }
         });
+        referenceTable.setRowHeight(20);
 
         // Setting pane
         JScrollPane scrollPane = new JScrollPane(referenceTable);
-        scrollPane.setPreferredSize(new Dimension(500, 100));
+        scrollPane.setPreferredSize(new Dimension(600, 225));
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridy = 0;
         layout.setConstraints(scrollPane, gbc);
@@ -87,7 +89,7 @@ public class ReferenceTablePanel extends JPanel {
     }
 
     private void initTitleLabel(GridBagLayout layout) {
-        titleLabel = new JLabel();
+        titleLabel = new CustomTextLabel();
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridy = 1;
         gbc.insets = new Insets(0, 10, 0, 0);
@@ -97,7 +99,7 @@ public class ReferenceTablePanel extends JPanel {
     }
 
     private void initAuthorLabel(GridBagLayout layout) {
-        authorLabel = new JLabel();
+        authorLabel = new CustomTextLabel();
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridy = 2;
         gbc.insets = new Insets(0, 10, 0, 0);
@@ -107,7 +109,7 @@ public class ReferenceTablePanel extends JPanel {
     }
 
     private void initPublisherLabel(GridBagLayout layout) {
-        publisherLabel = new JLabel();
+        publisherLabel = new CustomTextLabel();
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridy = 3;
         gbc.insets = new Insets(0, 10, 0, 0);
@@ -117,7 +119,7 @@ public class ReferenceTablePanel extends JPanel {
     }
 
     private void initIsbnLabel(GridBagLayout layout) {
-        isbnLabel = new JLabel();
+        isbnLabel = new CustomTextLabel();
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridy = 4;
         gbc.insets = new Insets(0, 10, 0, 0);
