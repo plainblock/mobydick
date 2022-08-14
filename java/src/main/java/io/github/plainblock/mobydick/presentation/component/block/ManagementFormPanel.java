@@ -23,7 +23,7 @@ public class ManagementFormPanel extends JPanel {
     public ManagementFormPanel() {
         super();
         GridBagLayout layout = new GridBagLayout();
-        layout.columnWidths = new int[]{100, 300, 100};
+        layout.columnWidths = new int[]{100, 400, 100};
         setLayout(layout);
         initStatusInputLabel(layout);
         initStatusInputBox(layout);
@@ -94,7 +94,6 @@ public class ManagementFormPanel extends JPanel {
         gbc.gridx = 2;
         gbc.gridy = 0;
         gbc.gridheight = 2;
-        gbc.fill = 1;
         layout.setConstraints(searchButton, gbc);
         add(searchButton);
     }
