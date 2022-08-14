@@ -3,9 +3,9 @@ package io.github.plainblock.mobydick.presentation.component.block;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import io.github.plainblock.mobydick.presentation.component.atom.CustomButton;
 import io.github.plainblock.mobydick.presentation.component.atom.CustomTextField;
 import io.github.plainblock.mobydick.presentation.component.atom.CustomTextLabel;
 
@@ -14,7 +14,7 @@ public class ReferenceFormPanel extends JPanel {
     private CustomTextField titleInputField;
     private CustomTextField authorInputField;
     private CustomTextField publisherInputField;
-    private JButton searchButton;
+    private CustomButton searchButton;
 
     public ReferenceFormPanel() {
         super();
@@ -103,7 +103,7 @@ public class ReferenceFormPanel extends JPanel {
     }
 
     private void initSearchButton(GridBagLayout layout) {
-        searchButton = new JButton("検索");
+        searchButton = new CustomButton("検索");
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridheight = 3;
