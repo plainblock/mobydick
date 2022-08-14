@@ -33,9 +33,10 @@ public class ManagementTablePanel extends JPanel {
     public void setTableData(String[][] tableData) {
         if (tableData == null || tableData.length == 0) {
             managementTable.setModel(new DefaultTableModel(COLUMNS, ROW_COUNT));
-            return;
+        } else {
+            managementTable.setModel(new DefaultTableModel(tableData, COLUMNS));
         }
-        managementTable.setModel(new DefaultTableModel(tableData, COLUMNS));
+        adjustManagementTable();
     }
 
     private void initManagementTable(GridBagLayout layout) {
@@ -43,6 +44,7 @@ public class ManagementTablePanel extends JPanel {
         TableModel model = new DefaultTableModel(COLUMNS, ROW_COUNT);
         managementTable = new CustomTable(model);
         managementTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        adjustManagementTable();
 
         // Setting pane
         JScrollPane scrollPane = new JScrollPane(managementTable);
@@ -53,6 +55,15 @@ public class ManagementTablePanel extends JPanel {
         gbc.gridy = 0;
         layout.setConstraints(scrollPane, gbc);
         add(scrollPane);
+    }
+
+    private void adjustManagementTable() {
+        managementTable.getColumnModel().getColumn(2).setMaxWidth(70);
+        managementTable.getColumnModel().getColumn(2).setMinWidth(70);
+        managementTable.getColumnModel().getColumn(3).setMaxWidth(70);
+        managementTable.getColumnModel().getColumn(3).setMinWidth(70);
+        managementTable.getColumnModel().getColumn(4).setMaxWidth(70);
+        managementTable.getColumnModel().getColumn(4).setMinWidth(70);
     }
 
 }
