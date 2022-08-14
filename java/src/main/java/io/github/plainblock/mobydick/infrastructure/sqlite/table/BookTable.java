@@ -56,7 +56,7 @@ public class BookTable {
     public static BookTable fromEntity(Book book) {
         BookTable table = new BookTable();
         table.id = book.getId().value();
-        table.isbn = book.getIsbn().value();
+        table.isbn = book.getIsbn() != null ? book.getIsbn().value() : null;
         table.title = book.getTitle();
         table.author = book.getAuthor();
         table.publisher = book.getPublisher();
