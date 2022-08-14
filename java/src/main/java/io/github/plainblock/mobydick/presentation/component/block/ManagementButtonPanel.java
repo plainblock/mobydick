@@ -17,8 +17,7 @@ public class ManagementButtonPanel extends JPanel {
     public ManagementButtonPanel() {
         super();
         GridBagLayout layout = new GridBagLayout();
-        layout.columnWidths = new int[]{100, 100, 100, 100, 100};
-        layout.rowHeights = new int[]{100, 20};
+        layout.columnWidths = new int[]{175, 80, 10, 80, 10 ,80, 175};
         setLayout(layout);
         initWantToReadButton(layout);
         initNotYetReadButton(layout);
@@ -45,7 +44,7 @@ public class ManagementButtonPanel extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 1;
-        gbc.gridwidth = 1;
+        gbc.fill = 1;
         layout.setConstraints(wantToReadButton, gbc);
         add(wantToReadButton);
     }
@@ -53,9 +52,9 @@ public class ManagementButtonPanel extends JPanel {
     private void initNotYetReadButton(GridBagLayout layout) {
         notYetReadButton = new CustomButton(BookStatus.NOT_YET_READ.label());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 2;
+        gbc.gridx = 3;
         gbc.gridy = 1;
-        gbc.gridwidth = 1;
+        gbc.fill = 1;
         layout.setConstraints(notYetReadButton, gbc);
         add(notYetReadButton);
     }
@@ -63,9 +62,9 @@ public class ManagementButtonPanel extends JPanel {
     private void initAlreadyReadButton(GridBagLayout layout) {
         alreadyReadButton = new CustomButton(BookStatus.ALREADY_READ.label());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 3;
+        gbc.gridx = 5;
         gbc.gridy = 1;
-        gbc.gridwidth = 1;
+        gbc.fill = 1;
         layout.setConstraints(alreadyReadButton, gbc);
         add(alreadyReadButton);
     }

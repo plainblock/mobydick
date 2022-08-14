@@ -14,12 +14,14 @@ import io.github.plainblock.mobydick.presentation.component.atom.CustomTable;
 public class ManagementTablePanel extends JPanel {
 
     private static final String[] COLUMNS = {"題名", "著者", "登録日", "読了日", "ステータス"};
+    private static final int ROW_COUNT = 20;
 
     private CustomTable managementTable;
 
     public ManagementTablePanel() {
         super();
         GridBagLayout layout = new GridBagLayout();
+        layout.rowHeights = new int[]{400};
         setLayout(layout);
         initManagementTable(layout);
     }
@@ -30,7 +32,7 @@ public class ManagementTablePanel extends JPanel {
 
     public void setTableData(String[][] tableData) {
         if (tableData == null || tableData.length == 0) {
-            managementTable.setModel(new DefaultTableModel(COLUMNS, 10));
+            managementTable.setModel(new DefaultTableModel(COLUMNS, ROW_COUNT));
             return;
         }
         managementTable.setModel(new DefaultTableModel(tableData, COLUMNS));
@@ -38,13 +40,13 @@ public class ManagementTablePanel extends JPanel {
 
     private void initManagementTable(GridBagLayout layout) {
         // Initialize table
-        TableModel model = new DefaultTableModel(COLUMNS, 20);
+        TableModel model = new DefaultTableModel(COLUMNS, ROW_COUNT);
         managementTable = new CustomTable(model);
         managementTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         // Setting pane
         JScrollPane scrollPane = new JScrollPane(managementTable);
-        scrollPane.setPreferredSize(new Dimension(600, 300));
+        scrollPane.setPreferredSize(new Dimension(600, 400));
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         GridBagConstraints gbc = new GridBagConstraints();
