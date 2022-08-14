@@ -4,11 +4,17 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidParameterException;
 
-public record GoogleBookQuery(String keyword, String title, String author, String publisher, String subject, String isbn, String lccn, String oclc) {
+public record GoogleBookQuery(String keyword, String title, String author, String publisher, String subject, String isbn, String lccn, String oclc, Integer number, Integer index) {
 
     public GoogleBookQuery {
         if (isBlank(keyword) && isBlank(title) && isBlank(author) && isBlank(publisher) && isBlank(subject) && isBlank(isbn) && isBlank(lccn) && isBlank(oclc)) {
             throw new InvalidParameterException("At least one query parameter is required");
+        }
+        if (number == null) {
+            number = 10;
+        }
+        if (index == null) {
+            index = 0;
         }
     }
 
@@ -45,6 +51,12 @@ public record GoogleBookQuery(String keyword, String title, String author, Strin
         }
         if (!isBlank(oclc)) {
             sb.append(toParam("oclc", oclc, requirePlusMarker));
+        }
+        if (number != null) {
+            sb.append(String.format("&maxResults=%d", number));
+        }
+        if (index != null) {
+            sb.append(String.format("&startIndex=%d", index));
         }
         return sb.toString();
     }
