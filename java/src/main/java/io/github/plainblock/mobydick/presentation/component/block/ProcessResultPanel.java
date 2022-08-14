@@ -2,13 +2,14 @@ package io.github.plainblock.mobydick.presentation.component.block;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import io.github.plainblock.mobydick.presentation.component.atom.CustomTextLabel;
 
 public class ProcessResultPanel extends JPanel {
 
-    private JLabel resultMessage;
-    private JLabel processTime;
+    private CustomTextLabel resultMessage;
+    private CustomTextLabel processTime;
 
     public ProcessResultPanel() {
         super();
@@ -29,7 +30,7 @@ public class ProcessResultPanel extends JPanel {
     }
 
     private void initResultMessage(GridBagLayout layout) {
-        resultMessage = new JLabel();
+        resultMessage = new CustomTextLabel();
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 1;
         layout.setConstraints(resultMessage, gbc);
@@ -37,7 +38,7 @@ public class ProcessResultPanel extends JPanel {
     }
 
     private void initProcessTime(GridBagLayout layout) {
-        processTime = new JLabel();
+        processTime = new CustomTextLabel();
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.anchor = GridBagConstraints.EAST;
