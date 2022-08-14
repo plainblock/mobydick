@@ -5,15 +5,15 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.util.Objects;
-import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
 import io.github.plainblock.mobydick.domain.model.object.BookStatus;
 import io.github.plainblock.mobydick.presentation.component.atom.CustomButton;
+import io.github.plainblock.mobydick.presentation.component.atom.CustomComboBox;
 
 public class ReferenceButtonPanel extends JPanel {
 
-    private JComboBox<String> statusBox;
+    private CustomComboBox<String> statusBox;
     private CustomButton registerButton;
 
     public ReferenceButtonPanel() {
@@ -34,7 +34,7 @@ public class ReferenceButtonPanel extends JPanel {
     }
 
     private void initStatusBox(GridBagLayout layout) {
-        statusBox = new JComboBox<>(BookStatus.toArray(false));
+        statusBox = new CustomComboBox<>(BookStatus.toArray(false));
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.insets = new Insets(0, 0, 0, 5);
