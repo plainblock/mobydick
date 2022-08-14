@@ -13,7 +13,6 @@ public class ManagementService extends BaseService {
     private final InternalRepository internal;
 
     private List<Book> managedBooks = new ArrayList<>();
-    private String keywordCache = "";
 
     public ManagementService(InternalRepository internal) {
         this.internal = internal;
@@ -25,7 +24,6 @@ public class ManagementService extends BaseService {
 
     public String loadBooks(String keyword, BookStatus status) {
         try {
-            keywordCache = keyword;
             managedBooks = internal.searchBooks(keyword, status);
             if (managedBooks.isEmpty()) {
                 return "条件にあう書籍が見つかりませんでした";
@@ -49,10 +47,10 @@ public class ManagementService extends BaseService {
         }
     }
 
-    public String updateBookStatus(Book book, BookStatus status) {
+    public String updateBookStatus(Book book, BookStatus status, String reloadKeyword) {
         try {
             book.update(internal, status);
-            managedBooks = internal.searchBooks(keywordCache, status);
+            managedBooks = internal.searchBooks(reloadKeyword, status);
             return "ステータスを更新しました";
         } catch (Exception e) {
             return formatErrorMessage(e);
