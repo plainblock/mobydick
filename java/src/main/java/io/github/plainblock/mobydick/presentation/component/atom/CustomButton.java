@@ -6,7 +6,7 @@ import javax.swing.JButton;
 public class CustomButton extends JButton {
 
     public CustomButton() {
-        this(null);
+        this(null, 14);
     }
 
     public CustomButton(String text) {
