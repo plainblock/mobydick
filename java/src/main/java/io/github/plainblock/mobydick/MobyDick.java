@@ -11,7 +11,7 @@ public class MobyDick extends JFrame {
 
     private static final String TITLE = "MobyDick Java edition";
     private static final int WIDTH = 640;
-    private static final int HEIGHT = 480;
+    private static final int HEIGHT = 640;
 
     public static void main(String[] args) {
         MobyDick main = new MobyDick();
