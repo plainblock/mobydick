@@ -3,7 +3,6 @@ package io.github.plainblock.mobydick.presentation.component.block;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Insets;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -13,6 +12,7 @@ import javax.swing.table.TableModel;
 
 import io.github.plainblock.mobydick.presentation.component.atom.CustomButton;
 import io.github.plainblock.mobydick.presentation.component.atom.CustomTable;
+import io.github.plainblock.mobydick.presentation.component.atom.CustomText;
 import io.github.plainblock.mobydick.presentation.component.atom.CustomTextLabel;
 
 public class ReferenceTablePanel extends JPanel {
@@ -24,27 +24,37 @@ public class ReferenceTablePanel extends JPanel {
     private CustomTextLabel pageLabel;
     private CustomButton backButton;
     private CustomButton nextButton;
-    private CustomTextLabel titleLabel;
-    private CustomTextLabel authorLabel;
-    private CustomTextLabel publisherLabel;
-    private CustomTextLabel publishedDateLabel;
-    private CustomTextLabel isbnLabel;
+
+    private CustomText titleText;
+    private CustomText authorText;
+    private CustomText publisherText;
+    private CustomText publishedDateText;
+    private CustomText isbnText;
+    private CustomText urlText;
+    private String[][] data;
 
     public ReferenceTablePanel() {
         super();
         GridBagLayout layout = new GridBagLayout();
-        layout.columnWidths = new int[]{280, 40, 280};
+        layout.columnWidths = new int[]{60, 220, 40, 280};
         setLayout(layout);
         initReferenceTable(layout);
         initPageLabel(layout);
         initBackButton(layout);
         initNextButton(layout);
         initTitleLabel(layout);
+        initTitleText(layout);
         initAuthorLabel(layout);
+        initAuthorText(layout);
         initPublisherLabel(layout);
+        initPublisherText(layout);
         initPublishedDateLabel(layout);
+        initPublishedDateText(layout);
         initIsbnLabel(layout);
-        initSelectedValue();
+        initIsbnText(layout);
+        initUrlLabel(layout);
+        initUrlText(layout);
+        resetSelectedValue();
     }
 
     public int getSelectedIndex() {
@@ -59,10 +69,12 @@ public class ReferenceTablePanel extends JPanel {
         if (tableData == null || tableData.length == 0) {
             referenceTable.setModel(new DefaultTableModel(COLUMNS, ROW_COUNT));
             pageLabel.setText(String.valueOf(page));
+            this.data = null;
             return;
         }
         referenceTable.setModel(new DefaultTableModel(tableData, COLUMNS));
         pageLabel.setText(String.valueOf(page));
+        this.data = tableData;
     }
 
     public void initBackButtonAction(ActionListener listener, String command) {
@@ -76,20 +88,30 @@ public class ReferenceTablePanel extends JPanel {
     }
 
     private void setSelectedValue(int index) {
-        if (index < 0) {
-            initSelectedValue();
+        if (index < 0 || this.data == null) {
+            resetSelectedValue();
             return;
         }
-        Object title = referenceTable.getValueAt(index, 0);
-        Object author = referenceTable.getValueAt(index, 1);
-        Object publisher = referenceTable.getValueAt(index, 2);
-        Object publishedDate = referenceTable.getValueAt(index, 3);
-        Object isbn = referenceTable.getValueAt(index, 4);
-        titleLabel.setText(String.format("題名：%s", title != null ? title : ""));
-        authorLabel.setText(String.format("著者：%s", author != null ? author : ""));
-        publisherLabel.setText(String.format("出版社：%s", publisher != null ? publisher : ""));
-        publishedDateLabel.setText(String.format("出版日：%s", publishedDate != null ? publishedDate : ""));
-        isbnLabel.setText(String.format("ISBN：%s", isbn != null ? isbn : ""));
+        String title = data[index][0];
+        String author = data[index][1];
+        String publisher = data[index][2];
+        String publishedDate = data[index][3];
+        String isbn = data[index][4];
+        String url = data[index][5];
+        titleText.setText(title);
+        authorText.setText(author);
+        publisherText.setText(publisher);
+        publishedDateText.setText(publishedDate);
+        isbnText.setText(isbn);
+        urlText.setText(url);
+    }
+
+    private void resetSelectedValue() {
+        titleText.setText("");
+        authorText.setText("");
+        publisherText.setText("");
+        publishedDateText.setText("");
+        isbnText.setText("");
     }
 
     private void initReferenceTable(GridBagLayout layout) {
@@ -106,7 +128,7 @@ public class ReferenceTablePanel extends JPanel {
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridy = 0;
-        gbc.gridwidth = 3;
+        gbc.gridwidth = 4;
         layout.setConstraints(scrollPane, gbc);
         add(scrollPane);
     }
@@ -114,7 +136,7 @@ public class ReferenceTablePanel extends JPanel {
     private void initPageLabel(GridBagLayout layout) {
         pageLabel = new CustomTextLabel(String.valueOf(0));
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 1;
+        gbc.gridx = 2;
         gbc.gridy = 1;
         layout.setConstraints(pageLabel, gbc);
         add(pageLabel);
@@ -123,7 +145,7 @@ public class ReferenceTablePanel extends JPanel {
     private void initBackButton(GridBagLayout layout) {
         backButton = new CustomButton("◀", 10);
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
+        gbc.gridx = 1;
         gbc.gridy = 1;
         gbc.anchor = GridBagConstraints.EAST;
         layout.setConstraints(backButton, gbc);
@@ -133,74 +155,143 @@ public class ReferenceTablePanel extends JPanel {
     private void initNextButton(GridBagLayout layout) {
         nextButton = new CustomButton("▶", 10);
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 2;
+        gbc.gridx = 3;
         gbc.gridy = 1;
         gbc.anchor = GridBagConstraints.WEST;
         layout.setConstraints(nextButton, gbc);
         add(nextButton);
     }
 
-    private void initSelectedValue() {
-        titleLabel.setText("題名：");
-        authorLabel.setText("著者：");
-        publisherLabel.setText("出版社：");
-        publishedDateLabel.setText("出版日：");
-        isbnLabel.setText("ISBN：");
-    }
-
     private void initTitleLabel(GridBagLayout layout) {
-        titleLabel = new CustomTextLabel();
+        CustomTextLabel titleLabel = new CustomTextLabel("題名：");
         GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
         gbc.gridy = 2;
-        gbc.gridwidth = 3;
-        gbc.insets = new Insets(0, 10, 0, 0);
         gbc.anchor = GridBagConstraints.WEST;
         layout.setConstraints(titleLabel, gbc);
         add(titleLabel);
     }
 
-    private void initAuthorLabel(GridBagLayout layout) {
-        authorLabel = new CustomTextLabel();
+    private void initTitleText(GridBagLayout layout) {
+        titleText = new CustomText();
+        titleText.setPreferredSize(new Dimension(540, 20));
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridy = 3;
+        gbc.gridx = 1;
+        gbc.gridy = 2;
         gbc.gridwidth = 3;
-        gbc.insets = new Insets(0, 10, 0, 0);
+        gbc.anchor = GridBagConstraints.WEST;
+        layout.setConstraints(titleText, gbc);
+        add(titleText);
+    }
+
+    private void initAuthorLabel(GridBagLayout layout) {
+        CustomTextLabel authorLabel = new CustomTextLabel("著者：");
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 3;
         gbc.anchor = GridBagConstraints.WEST;
         layout.setConstraints(authorLabel, gbc);
         add(authorLabel);
     }
 
-    private void initPublisherLabel(GridBagLayout layout) {
-        publisherLabel = new CustomTextLabel();
+    private void initAuthorText(GridBagLayout layout) {
+        authorText = new CustomText();
+        authorText.setPreferredSize(new Dimension(540, 20));
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridy = 4;
+        gbc.gridx = 1;
+        gbc.gridy = 3;
         gbc.gridwidth = 3;
-        gbc.insets = new Insets(0, 10, 0, 0);
+        gbc.anchor = GridBagConstraints.WEST;
+        layout.setConstraints(authorText, gbc);
+        add(authorText);
+    }
+
+    private void initPublisherLabel(GridBagLayout layout) {
+        CustomTextLabel publisherLabel = new CustomTextLabel("出版社：");
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 4;
         gbc.anchor = GridBagConstraints.WEST;
         layout.setConstraints(publisherLabel, gbc);
         add(publisherLabel);
     }
 
-    private void initPublishedDateLabel(GridBagLayout layout) {
-        publishedDateLabel = new CustomTextLabel();
+    private void initPublisherText(GridBagLayout layout) {
+        publisherText = new CustomText();
+        publisherText.setPreferredSize(new Dimension(540, 20));
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridy = 5;
+        gbc.gridx = 1;
+        gbc.gridy = 4;
         gbc.gridwidth = 3;
-        gbc.insets = new Insets(0, 10, 0, 0);
+        gbc.anchor = GridBagConstraints.WEST;
+        layout.setConstraints(publisherText, gbc);
+        add(publisherText);
+    }
+
+    private void initPublishedDateLabel(GridBagLayout layout) {
+        CustomTextLabel publishedDateLabel = new CustomTextLabel("出版日：");
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 5;
         gbc.anchor = GridBagConstraints.WEST;
         layout.setConstraints(publishedDateLabel, gbc);
         add(publishedDateLabel);
     }
 
-    private void initIsbnLabel(GridBagLayout layout) {
-        isbnLabel = new CustomTextLabel();
+    private void initPublishedDateText(GridBagLayout layout) {
+        publishedDateText = new CustomText();
+        publishedDateText.setPreferredSize(new Dimension(540, 20));
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridy = 6;
+        gbc.gridx = 1;
+        gbc.gridy = 5;
         gbc.gridwidth = 3;
-        gbc.insets = new Insets(0, 10, 0, 0);
+        gbc.anchor = GridBagConstraints.WEST;
+        layout.setConstraints(publishedDateText, gbc);
+        add(publishedDateText);
+    }
+
+    private void initIsbnLabel(GridBagLayout layout) {
+        CustomTextLabel isbnLabel = new CustomTextLabel("ISBN：");
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 6;
         gbc.anchor = GridBagConstraints.WEST;
         layout.setConstraints(isbnLabel, gbc);
         add(isbnLabel);
+    }
+
+    private void initIsbnText(GridBagLayout layout) {
+        isbnText = new CustomText();
+        isbnText.setPreferredSize(new Dimension(540, 20));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 6;
+        gbc.gridwidth = 3;
+        gbc.anchor = GridBagConstraints.WEST;
+        layout.setConstraints(isbnText, gbc);
+        add(isbnText);
+    }
+
+    private void initUrlLabel(GridBagLayout layout) {
+        CustomTextLabel urlLabel = new CustomTextLabel("URL：");
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 7;
+        gbc.anchor = GridBagConstraints.WEST;
+        layout.setConstraints(urlLabel, gbc);
+        add(urlLabel);
+    }
+
+    private void initUrlText(GridBagLayout layout) {
+        urlText = new CustomText();
+        urlText.setPreferredSize(new Dimension(540, 20));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 7;
+        gbc.gridwidth = 3;
+        gbc.anchor = GridBagConstraints.WEST;
+        layout.setConstraints(urlText, gbc);
+        add(urlText);
     }
 
 }

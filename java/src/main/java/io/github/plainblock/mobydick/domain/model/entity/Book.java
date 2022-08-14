@@ -93,9 +93,9 @@ public class Book {
 
     public String[] toRowReferenceData() {
         if (isbn == null) {
-            return new String[]{title, author, publisher, publishedDate, ""};
+            return new String[]{title, author, publisher, publishedDate, "", information};
         }
-        return new String[]{title, author, publisher, publishedDate, isbn.value()};
+        return new String[]{title, author, publisher, publishedDate, isbn.value(), information};
     }
 
     public String[] toRowManagementData() {

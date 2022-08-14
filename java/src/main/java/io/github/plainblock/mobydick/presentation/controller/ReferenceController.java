@@ -119,7 +119,7 @@ public class ReferenceController extends BaseController {
         if (books == null || books.isEmpty()) {
             referenceView.setTableData(null, page);
         } else {
-            String[][] data = new String[books.size()][4];
+            String[][] data = new String[books.size()][5];
             for (int i = 0; i < books.size(); i++) {
                 data[i] = books.get(i).toRowReferenceData();
             }
