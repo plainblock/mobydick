@@ -44,3 +44,6 @@ bin/
 *.db
 *.sqlite
 *.sqlite3
+
+### Log ###
+*.log
