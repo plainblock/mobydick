@@ -24,7 +24,6 @@ public class ReferenceTablePanel extends JPanel {
     private CustomTextLabel pageLabel;
     private CustomButton backButton;
     private CustomButton nextButton;
-
     private CustomText titleText;
     private CustomText authorText;
     private CustomText publisherText;
