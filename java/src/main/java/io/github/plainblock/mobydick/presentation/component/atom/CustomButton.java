@@ -10,8 +10,12 @@ public class CustomButton extends JButton {
     }
 
     public CustomButton(String text) {
+        this(text, 14);
+    }
+
+    public CustomButton(String text, int fontSize) {
         super(text);
-        setFont(new Font("Dialog", Font.BOLD, 14));
+        setFont(new Font("Dialog", Font.BOLD, fontSize));
     }
 
 }
