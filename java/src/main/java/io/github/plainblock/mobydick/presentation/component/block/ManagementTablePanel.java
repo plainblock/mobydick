@@ -1,7 +1,8 @@
 package io.github.plainblock.mobydick.presentation.component.block;
 
 import java.awt.Dimension;
-import javax.swing.BoxLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
@@ -18,8 +19,9 @@ public class ManagementTablePanel extends JPanel {
 
     public ManagementTablePanel() {
         super();
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        initManagementTable();
+        GridBagLayout layout = new GridBagLayout();
+        setLayout(layout);
+        initManagementTable(layout);
     }
 
     public int getSelectedIndex() {
@@ -34,14 +36,20 @@ public class ManagementTablePanel extends JPanel {
         managementTable.setModel(new DefaultTableModel(tableData, COLUMNS));
     }
 
-    private void initManagementTable() {
-        TableModel model = new DefaultTableModel(COLUMNS, 10);
+    private void initManagementTable(GridBagLayout layout) {
+        // Initialize table
+        TableModel model = new DefaultTableModel(COLUMNS, 20);
         managementTable = new CustomTable(model);
         managementTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        // Setting pane
         JScrollPane scrollPane = new JScrollPane(managementTable);
         scrollPane.setPreferredSize(new Dimension(600, 300));
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridy = 0;
+        layout.setConstraints(scrollPane, gbc);
         add(scrollPane);
     }
 
