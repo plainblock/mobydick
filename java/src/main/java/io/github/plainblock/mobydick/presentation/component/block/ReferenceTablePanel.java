@@ -111,6 +111,7 @@ public class ReferenceTablePanel extends JPanel {
         publisherText.setText("");
         publishedDateText.setText("");
         isbnText.setText("");
+        urlText.setText("");
     }
 
     private void initReferenceTable(GridBagLayout layout) {
