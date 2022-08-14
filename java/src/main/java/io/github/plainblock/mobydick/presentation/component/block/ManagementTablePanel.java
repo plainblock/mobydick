@@ -4,16 +4,17 @@ import java.awt.Dimension;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+
+import io.github.plainblock.mobydick.presentation.component.atom.CustomTable;
 
 public class ManagementTablePanel extends JPanel {
 
     private static final String[] COLUMNS = {"題名", "著者", "出版社", "ステータス"};
 
-    private JTable managementTable;
+    private CustomTable managementTable;
 
     public ManagementTablePanel() {
         super();
@@ -35,13 +36,13 @@ public class ManagementTablePanel extends JPanel {
 
     private void initManagementTable() {
         TableModel model = new DefaultTableModel(COLUMNS, 10);
-        managementTable = new JTable(model);
-        managementTable.setAutoCreateRowSorter(true);
+        managementTable = new CustomTable(model);
         managementTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        JScrollPane managementTablePane = new JScrollPane(managementTable);
-        managementTablePane.setPreferredSize(new Dimension(600, 300));
-        managementTablePane.setMaximumSize(new Dimension(600, 300));
-        add(managementTablePane);
+        JScrollPane scrollPane = new JScrollPane(managementTable);
+        scrollPane.setPreferredSize(new Dimension(600, 300));
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        add(scrollPane);
     }
 
 }

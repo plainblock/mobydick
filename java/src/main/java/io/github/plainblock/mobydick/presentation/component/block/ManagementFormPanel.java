@@ -5,20 +5,20 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
 import java.util.Objects;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 
 import io.github.plainblock.mobydick.domain.model.object.BookStatus;
+import io.github.plainblock.mobydick.presentation.component.atom.CustomButton;
+import io.github.plainblock.mobydick.presentation.component.atom.CustomComboBox;
 import io.github.plainblock.mobydick.presentation.component.atom.CustomTextField;
+import io.github.plainblock.mobydick.presentation.component.atom.CustomTextLabel;
 
 public class ManagementFormPanel extends JPanel {
 
-    private JComboBox<String> statusInputBox;
+    private CustomComboBox<String> statusInputBox;
     private CustomTextField keywordInputField;
-    private JButton searchButton;
+    private CustomButton searchButton;
 
     public ManagementFormPanel() {
         super();
@@ -46,7 +46,7 @@ public class ManagementFormPanel extends JPanel {
     }
 
     private void initStatusInputLabel(GridBagLayout layout) {
-        JLabel statusInputLabel = new JLabel("ステータス");
+        CustomTextLabel statusInputLabel = new CustomTextLabel("ステータス");
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -56,7 +56,7 @@ public class ManagementFormPanel extends JPanel {
     }
 
     private void initStatusInputBox(GridBagLayout layout) {
-        statusInputBox = new JComboBox<>(BookStatus.toArray(true));
+        statusInputBox = new CustomComboBox<>(BookStatus.toArray(true));
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 0;
@@ -66,7 +66,7 @@ public class ManagementFormPanel extends JPanel {
     }
 
     private void initKeywordInputLabel(GridBagLayout layout) {
-        JLabel keywordInputLabel = new JLabel("キーワード");
+        CustomTextLabel keywordInputLabel = new CustomTextLabel("キーワード");
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 1;
@@ -89,7 +89,7 @@ public class ManagementFormPanel extends JPanel {
     }
 
     private void initSearchButton(GridBagLayout layout) {
-        searchButton = new JButton("検索");
+        searchButton = new CustomButton("検索");
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 0;

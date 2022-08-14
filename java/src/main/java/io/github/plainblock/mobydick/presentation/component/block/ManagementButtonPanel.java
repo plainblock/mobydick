@@ -3,16 +3,16 @@ package io.github.plainblock.mobydick.presentation.component.block;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import io.github.plainblock.mobydick.domain.model.object.BookStatus;
+import io.github.plainblock.mobydick.presentation.component.atom.CustomButton;
 
 public class ManagementButtonPanel extends JPanel {
 
-    private JButton wantToReadButton;
-    private JButton notYetReadButton;
-    private JButton alreadyReadButton;
+    private CustomButton wantToReadButton;
+    private CustomButton notYetReadButton;
+    private CustomButton alreadyReadButton;
 
     public ManagementButtonPanel() {
         super();
@@ -41,7 +41,7 @@ public class ManagementButtonPanel extends JPanel {
     }
 
     private void initWantToReadButton(GridBagLayout layout) {
-        wantToReadButton = new JButton(BookStatus.NOT_PURCHASED.label());
+        wantToReadButton = new CustomButton(BookStatus.NOT_PURCHASED.label());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 1;
@@ -51,7 +51,7 @@ public class ManagementButtonPanel extends JPanel {
     }
 
     private void initNotYetReadButton(GridBagLayout layout) {
-        notYetReadButton = new JButton(BookStatus.NOT_YET_READ.label());
+        notYetReadButton = new CustomButton(BookStatus.NOT_YET_READ.label());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 1;
@@ -61,7 +61,7 @@ public class ManagementButtonPanel extends JPanel {
     }
 
     private void initAlreadyReadButton(GridBagLayout layout) {
-        alreadyReadButton = new JButton(BookStatus.ALREADY_READ.label());
+        alreadyReadButton = new CustomButton(BookStatus.ALREADY_READ.label());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 3;
         gbc.gridy = 1;

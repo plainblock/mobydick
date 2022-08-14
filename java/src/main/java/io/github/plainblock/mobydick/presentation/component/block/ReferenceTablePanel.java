@@ -6,18 +6,18 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import io.github.plainblock.mobydick.presentation.component.atom.CustomTable;
 import io.github.plainblock.mobydick.presentation.component.atom.CustomTextLabel;
 
 public class ReferenceTablePanel extends JPanel {
 
     private static final String[] COLUMNS = {"題名", "著者", "出版社", "ISBN"};
 
-    private JTable referenceTable;
+    private CustomTable referenceTable;
     private CustomTextLabel titleLabel;
     private CustomTextLabel authorLabel;
     private CustomTextLabel publisherLabel;
@@ -61,8 +61,7 @@ public class ReferenceTablePanel extends JPanel {
     private void initReferenceTable(GridBagLayout layout) {
         // Initialize table
         TableModel model = new DefaultTableModel(COLUMNS, 10);
-        referenceTable = new JTable(model);
-        referenceTable.setAutoCreateRowSorter(true);
+        referenceTable = new CustomTable(model);
         referenceTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         referenceTable.getSelectionModel().addListSelectionListener(event -> {
             int index = referenceTable.getSelectedRow();
@@ -70,7 +69,6 @@ public class ReferenceTablePanel extends JPanel {
                 setSelectedValue(index);
             }
         });
-        referenceTable.setRowHeight(20);
 
         // Setting pane
         JScrollPane scrollPane = new JScrollPane(referenceTable);
