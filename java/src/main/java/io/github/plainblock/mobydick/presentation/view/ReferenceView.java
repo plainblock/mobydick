@@ -75,19 +75,19 @@ public class ReferenceView extends JPanel {
     }
 
     public void initFetchAction(ActionListener listener, String command) {
-        formPanel.initSearchButtonAction(listener, command);
+        formPanel.assignSearchButtonAction(listener, command);
     }
 
     public void initBackAction(ActionListener listener, String command) {
-        tablePanel.initBackButtonAction(listener, command);
+        tablePanel.assignBackButtonAction(listener, command);
     }
 
     public void initNextAction(ActionListener listener, String command) {
-        tablePanel.initNextButtonAction(listener, command);
+        tablePanel.assignNextButtonAction(listener, command);
     }
 
     public void initRegisterAction(ActionListener listener, String command) {
-        buttonPanel.initRegisterButtonAction(listener, command);
+        buttonPanel.assignRegisterButtonAction(listener, command);
     }
 
 }

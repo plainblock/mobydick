@@ -28,7 +28,7 @@ public class ReferenceButtonPanel extends JPanel {
         return Objects.requireNonNull(statusBox.getSelectedItem()).toString();
     }
 
-    public void initRegisterButtonAction(ActionListener listener, String command) {
+    public void assignRegisterButtonAction(ActionListener listener, String command) {
         registerButton.addActionListener(listener);
         registerButton.setActionCommand(command);
     }

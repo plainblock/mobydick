@@ -40,7 +40,7 @@ public class ReferenceFormPanel extends JPanel {
         return publisherInputField.getText();
     }
 
-    public void initSearchButtonAction(ActionListener listener, String command) {
+    public void assignSearchButtonAction(ActionListener listener, String command) {
         searchButton.addActionListener(listener);
         searchButton.setActionCommand(command);
     }

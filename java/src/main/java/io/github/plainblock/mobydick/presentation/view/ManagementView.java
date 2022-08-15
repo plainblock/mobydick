@@ -71,15 +71,15 @@ public class ManagementView extends JPanel {
     }
 
     public void assignWantToAction(ActionListener listener, String command) {
-        buttonPanel.setWantToReadButtonAction(listener, command);
+        buttonPanel.assignWantToReadButtonAction(listener, command);
     }
 
     public void assignNotYetAction(ActionListener listener, String command) {
-        buttonPanel.setNotYetReadButtonAction(listener, command);
+        buttonPanel.assignNotYetReadButtonAction(listener, command);
     }
 
     public void assignAlreadyAction(ActionListener listener, String command) {
-        buttonPanel.setAlreadyReadButtonAction(listener, command);
+        buttonPanel.assignAlreadyReadButtonAction(listener, command);
     }
 
 }

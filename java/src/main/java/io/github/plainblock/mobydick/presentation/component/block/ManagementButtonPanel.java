@@ -24,17 +24,17 @@ public class ManagementButtonPanel extends JPanel {
         initAlreadyReadButton(layout);
     }
 
-    public void setWantToReadButtonAction(ActionListener listener, String command) {
+    public void assignWantToReadButtonAction(ActionListener listener, String command) {
         wantToReadButton.addActionListener(listener);
         wantToReadButton.setActionCommand(command);
     }
 
-    public void setNotYetReadButtonAction(ActionListener listener, String command) {
+    public void assignNotYetReadButtonAction(ActionListener listener, String command) {
         notYetReadButton.addActionListener(listener);
         notYetReadButton.setActionCommand(command);
     }
 
-    public void setAlreadyReadButtonAction(ActionListener listener, String command) {
+    public void assignAlreadyReadButtonAction(ActionListener listener, String command) {
         alreadyReadButton.addActionListener(listener);
         alreadyReadButton.setActionCommand(command);
     }

@@ -109,7 +109,6 @@ public class ManagementFormPanel extends JPanel {
         searchButton = new CustomButton("検索");
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 2;
-        gbc.gridy = 0;
         gbc.gridheight = 3;
         layout.setConstraints(searchButton, gbc);
         add(searchButton);

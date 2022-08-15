@@ -76,12 +76,12 @@ public class ReferenceTablePanel extends JPanel {
         this.data = tableData;
     }
 
-    public void initBackButtonAction(ActionListener listener, String command) {
+    public void assignBackButtonAction(ActionListener listener, String command) {
         backButton.addActionListener(listener);
         backButton.setActionCommand(command);
     }
 
-    public void initNextButtonAction(ActionListener listener, String command) {
+    public void assignNextButtonAction(ActionListener listener, String command) {
         nextButton.addActionListener(listener);
         nextButton.setActionCommand(command);
     }
