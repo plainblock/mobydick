@@ -16,4 +16,8 @@ public class BaseController implements ActionListener {
         return String.format("%d ms", end - start);
     }
 
+    String formatErrorMessage(Exception exception) {
+        return String.format("処理中にエラーが発生しました：%s", exception.getMessage());
+    }
+
 }

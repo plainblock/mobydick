@@ -6,7 +6,7 @@ import java.util.List;
 import io.github.plainblock.mobydick.domain.model.entity.Book;
 import io.github.plainblock.mobydick.domain.repository.ExternalRepository;
 
-public class ReferenceService extends BaseService {
+public class ReferenceService {
 
     private final ExternalRepository external;
 
@@ -20,16 +20,12 @@ public class ReferenceService extends BaseService {
         return fetchedBooks;
     }
 
-    public String findWithCondition(String title, String author, String publisher, int number, int page) {
-        try {
-            fetchedBooks = external.searchBooks(title, author, publisher, number, page);
-            if (fetchedBooks.isEmpty()) {
-                return "条件にあう書籍が見つかりませんでした";
-            }
-            return "";
-        } catch (Exception e) {
-            return formatErrorMessage(e);
+    public String findBooks(String title, String author, String publisher, int number, int page) {
+        fetchedBooks = external.searchBooks(title, author, publisher, number, page);
+        if (fetchedBooks.isEmpty()) {
+            return "条件にあう書籍が見つかりませんでした";
         }
+        return "";
     }
 
 }

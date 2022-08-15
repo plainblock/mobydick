@@ -59,6 +59,7 @@ public class ManagementController extends BaseController {
                     })
             );
         } catch (Exception e) {
+            managementView.setResultMessage(formatErrorMessage(e));
             LOGGER.error("Error occurred!", e);
         }
     }
@@ -79,6 +80,7 @@ public class ManagementController extends BaseController {
                     })
             );
         } catch (Exception e) {
+            managementView.setResultMessage(formatErrorMessage(e));
             LOGGER.error("Error occurred!", e);
         }
     }
@@ -99,6 +101,7 @@ public class ManagementController extends BaseController {
                     })
             );
         } catch (Exception e) {
+            managementView.setResultMessage(formatErrorMessage(e));
             LOGGER.error("Error occurred!", e);
         }
     }
@@ -119,6 +122,7 @@ public class ManagementController extends BaseController {
                     })
             );
         } catch (Exception e) {
+            managementView.setResultMessage(formatErrorMessage(e));
             LOGGER.error("Error occurred!", e);
         }
     }

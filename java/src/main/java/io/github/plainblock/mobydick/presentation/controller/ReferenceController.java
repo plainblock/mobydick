@@ -65,12 +65,13 @@ public class ReferenceController extends BaseController {
                             referenceView.setResultMessage("検索条件を入力してください");
                             return;
                         }
-                        String message = referenceService.findWithCondition(titleCache, authorCache, publisherCache, ReferenceTablePanel.ROW_COUNT, 1);
+                        String message = referenceService.findBooks(titleCache, authorCache, publisherCache, ReferenceTablePanel.ROW_COUNT, 1);
                         setBookData(referenceService.getFetchedBooks(), 1);
                         referenceView.setResultMessage(message);
                     })
             );
         } catch (Exception e) {
+            referenceView.setResultMessage(formatErrorMessage(e));
             LOGGER.error("Error occurred!", e);
         }
     }
@@ -85,12 +86,13 @@ public class ReferenceController extends BaseController {
                             return;
                         }
                         page--;
-                        String message = referenceService.findWithCondition(titleCache, authorCache, publisherCache, ReferenceTablePanel.ROW_COUNT, page);
+                        String message = referenceService.findBooks(titleCache, authorCache, publisherCache, ReferenceTablePanel.ROW_COUNT, page);
                         setBookData(referenceService.getFetchedBooks(), page);
                         referenceView.setResultMessage(message);
                     })
             );
         } catch (Exception e) {
+            referenceView.setResultMessage(formatErrorMessage(e));
             LOGGER.error("Error occurred!", e);
         }
     }
@@ -108,12 +110,13 @@ public class ReferenceController extends BaseController {
                             return;
                         }
                         page++;
-                        String message = referenceService.findWithCondition(titleCache, authorCache, publisherCache, ReferenceTablePanel.ROW_COUNT, page);
+                        String message = referenceService.findBooks(titleCache, authorCache, publisherCache, ReferenceTablePanel.ROW_COUNT, page);
                         setBookData(referenceService.getFetchedBooks(), page);
                         referenceView.setResultMessage(message);
                     })
             );
         } catch (Exception e) {
+            referenceView.setResultMessage(formatErrorMessage(e));
             LOGGER.error("Error occurred!", e);
         }
     }
@@ -135,6 +138,7 @@ public class ReferenceController extends BaseController {
                     })
             );
         } catch (Exception e) {
+            referenceView.setResultMessage(formatErrorMessage(e));
             LOGGER.error("Error occurred!", e);
         }
     }
