@@ -20,4 +20,3 @@ npm run develop
 npm run product
 ```
 
-Runs the app in the development mode.
