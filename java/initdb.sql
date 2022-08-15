@@ -10,5 +10,3 @@
     , register_at timestamp
     , read_at timestamp
 );
-
-.exit
