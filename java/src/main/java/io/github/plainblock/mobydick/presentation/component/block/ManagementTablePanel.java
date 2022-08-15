@@ -21,7 +21,6 @@ public class ManagementTablePanel extends JPanel {
     public ManagementTablePanel() {
         super();
         GridBagLayout layout = new GridBagLayout();
-        layout.rowHeights = new int[]{400};
         setLayout(layout);
         initManagementTable(layout);
     }
@@ -48,7 +47,7 @@ public class ManagementTablePanel extends JPanel {
 
         // Setting pane
         JScrollPane scrollPane = new JScrollPane(managementTable);
-        scrollPane.setPreferredSize(new Dimension(600, 410));
+        scrollPane.setPreferredSize(new Dimension(600, 390));
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         GridBagConstraints gbc = new GridBagConstraints();

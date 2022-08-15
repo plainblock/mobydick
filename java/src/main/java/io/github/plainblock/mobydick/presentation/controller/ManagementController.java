@@ -22,15 +22,13 @@ public class ManagementController extends BaseController {
     private final ManagementService managementService;
     private final ManagementView managementView;
 
-    private String keywordCache = "";
-
     public ManagementController(ManagementService managementService, ManagementView managementView) {
         this.managementService = managementService;
         this.managementView = managementView;
-        this.managementView.initGetAction(this, GET);
-        this.managementView.initWantToAction(this, NOT_PURCHASED);
-        this.managementView.initNotYetAction(this, NOT_YET_READ);
-        this.managementView.initAlreadyAction(this, ALREADY_READ);
+        this.managementView.assignGetAction(this, GET);
+        this.managementView.assignWantToAction(this, NOT_PURCHASED);
+        this.managementView.assignNotYetAction(this, NOT_YET_READ);
+        this.managementView.assignAlreadyAction(this, ALREADY_READ);
     }
 
     public ManagementView getView() {
@@ -52,9 +50,10 @@ public class ManagementController extends BaseController {
         try {
             managementView.setProcessTime(
                     measureTime(() -> {
-                        keywordCache = managementView.getKeywordValue();
+                        String title = managementView.getTitleValue();
+                        String author = managementView.getAuthorValue();
                         BookStatus status = BookStatus.fromLabel(managementView.getStatusValue());
-                        String message = managementService.loadBooks(keywordCache, status);
+                        String message = managementService.loadBooks(title, author, status);
                         setBookData(managementService.getManagedBooks());
                         managementView.setResultMessage(message);
                     })
@@ -74,8 +73,7 @@ public class ManagementController extends BaseController {
                             setIndexErrorMessage();
                             return;
                         }
-                        Book book = managementService.getManagedBooks().get(index);
-                        String message = managementService.updateBookStatus(book, BookStatus.NOT_PURCHASED, keywordCache);
+                        String message = managementService.updateBookStatus(index, BookStatus.NOT_PURCHASED);
                         setBookData(managementService.getManagedBooks());
                         managementView.setResultMessage(message);
                     })
@@ -95,8 +93,7 @@ public class ManagementController extends BaseController {
                             setIndexErrorMessage();
                             return;
                         }
-                        Book book = managementService.getManagedBooks().get(index);
-                        String message = managementService.updateBookStatus(book, BookStatus.NOT_YET_READ, keywordCache);
+                        String message = managementService.updateBookStatus(index, BookStatus.NOT_YET_READ);
                         setBookData(managementService.getManagedBooks());
                         managementView.setResultMessage(message);
                     })
@@ -116,8 +113,7 @@ public class ManagementController extends BaseController {
                             setIndexErrorMessage();
                             return;
                         }
-                        Book book = managementService.getManagedBooks().get(index);
-                        String message = managementService.updateBookStatus(book, BookStatus.ALREADY_READ, keywordCache);
+                        String message = managementService.updateBookStatus(index, BookStatus.ALREADY_READ);
                         setBookData(managementService.getManagedBooks());
                         managementView.setResultMessage(message);
                     })

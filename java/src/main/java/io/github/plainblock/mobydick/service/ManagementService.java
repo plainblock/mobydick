@@ -22,9 +22,9 @@ public class ManagementService extends BaseService {
         return managedBooks;
     }
 
-    public String loadBooks(String keyword, BookStatus status) {
+    public String loadBooks(String title, String author, BookStatus status) {
         try {
-            managedBooks = internal.searchBooks(keyword, status);
+            managedBooks = internal.filterBooks(title, author, null, null, status);
             if (managedBooks.isEmpty()) {
                 return "条件にあう書籍が見つかりませんでした";
             }
@@ -47,10 +47,9 @@ public class ManagementService extends BaseService {
         }
     }
 
-    public String updateBookStatus(Book book, BookStatus status, String reloadKeyword) {
+    public String updateBookStatus(int index, BookStatus status) {
         try {
-            book.update(internal, status);
-            managedBooks = internal.searchBooks(reloadKeyword, status);
+            managedBooks.get(index).update(internal, status);
             return "ステータスを更新しました";
         } catch (Exception e) {
             return formatErrorMessage(e);

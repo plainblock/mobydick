@@ -42,12 +42,16 @@ public class ManagementView extends JPanel {
         return formPanel.getStatusValue();
     }
 
-    public String getKeywordValue() {
-        return formPanel.getKeywordValue();
-    }
-
     public int getSelectedIndex() {
         return tablePanel.getSelectedIndex();
+    }
+
+    public String getTitleValue() {
+        return formPanel.getTitleValue();
+    }
+
+    public String getAuthorValue() {
+        return formPanel.getAuthorValue();
     }
 
     public void setTableData(String[][] tableData) {
@@ -62,19 +66,19 @@ public class ManagementView extends JPanel {
         resultPanel.setProcessTime(time);
     }
 
-    public void initGetAction(ActionListener listener, String command) {
-        formPanel.initSearchButtonAction(listener, command);
+    public void assignGetAction(ActionListener listener, String command) {
+        formPanel.assignSearchButtonAction(listener, command);
     }
 
-    public void initWantToAction(ActionListener listener, String command) {
+    public void assignWantToAction(ActionListener listener, String command) {
         buttonPanel.setWantToReadButtonAction(listener, command);
     }
 
-    public void initNotYetAction(ActionListener listener, String command) {
+    public void assignNotYetAction(ActionListener listener, String command) {
         buttonPanel.setNotYetReadButtonAction(listener, command);
     }
 
-    public void initAlreadyAction(ActionListener listener, String command) {
+    public void assignAlreadyAction(ActionListener listener, String command) {
         buttonPanel.setAlreadyReadButtonAction(listener, command);
     }
 
