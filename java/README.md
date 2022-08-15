@@ -1,10 +1,10 @@
-# MobyDick Java edition
+# MobyDick Java Edition
 
 MobyDick application implemented by Java
 
-## Enviroment
+## Environment
 
-- Java 17.0.2
+- OpenJDK 17.0.2
 - SQLite 3.39.2
 
 ## Getting start
