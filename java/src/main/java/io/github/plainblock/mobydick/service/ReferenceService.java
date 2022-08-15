@@ -8,12 +8,12 @@ import io.github.plainblock.mobydick.domain.repository.ExternalRepository;
 
 public class ReferenceService {
 
-    private final ExternalRepository external;
+    private final ExternalRepository externalRepository;
 
     private List<Book> fetchedBooks = new ArrayList<>();
 
-    public ReferenceService(ExternalRepository external) {
-        this.external = external;
+    public ReferenceService(ExternalRepository externalRepository) {
+        this.externalRepository = externalRepository;
     }
 
     public List<Book> getFetchedBooks() {
@@ -21,7 +21,7 @@ public class ReferenceService {
     }
 
     public String findBooks(String title, String author, String publisher, int number, int page) {
-        fetchedBooks = external.searchBooks(title, author, publisher, number, page);
+        fetchedBooks = externalRepository.searchBooks(title, author, publisher, number, page);
         if (fetchedBooks.isEmpty()) {
             return "条件にあう書籍が見つかりませんでした";
         }

@@ -9,12 +9,12 @@ import io.github.plainblock.mobydick.domain.repository.InternalRepository;
 
 public class ManagementService {
 
-    private final InternalRepository internal;
+    private final InternalRepository internalRepository;
 
     private List<Book> managedBooks = new ArrayList<>();
 
-    public ManagementService(InternalRepository internal) {
-        this.internal = internal;
+    public ManagementService(InternalRepository internalRepository) {
+        this.internalRepository = internalRepository;
     }
 
     public List<Book> getManagedBooks() {
@@ -22,7 +22,7 @@ public class ManagementService {
     }
 
     public String loadBooks(String title, String author, BookStatus status) {
-        managedBooks = internal.filterBooks(title, author, null, null, status);
+        managedBooks = internalRepository.filterBooks(title, author, null, null, status);
         if (managedBooks.isEmpty()) {
             return "条件にあう書籍が見つかりませんでした";
         }
@@ -30,16 +30,16 @@ public class ManagementService {
     }
 
     public String registerBook(Book book, BookStatus status) {
-        List<Book> registered = internal.filterBooks(book.getTitle(), book.getAuthor(), book.getPublisher(), book.getIsbn(), null);
+        List<Book> registered = internalRepository.filterBooks(book.getTitle(), book.getAuthor(), book.getPublisher(), book.getIsbn(), null);
         if (registered.isEmpty()) {
-            book.create(internal, status);
+            book.create(internalRepository, status);
             return "本棚に登録しました";
         }
         return "既に本棚に登録済みです";
     }
 
     public String updateBookStatus(int index, BookStatus status) {
-        managedBooks.get(index).update(internal, status);
+        managedBooks.get(index).update(internalRepository, status);
         return "ステータスを更新しました";
     }
 
