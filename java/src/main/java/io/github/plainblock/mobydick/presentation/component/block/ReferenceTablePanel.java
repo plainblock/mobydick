@@ -38,22 +38,13 @@ public class ReferenceTablePanel extends JPanel {
         layout.columnWidths = new int[]{60, 220, 40, 280};
         setLayout(layout);
         initReferenceTable(layout);
-        initPageLabel(layout);
-        initBackButton(layout);
-        initNextButton(layout);
-        initTitleLabel(layout);
+        initPagingButton(layout);
         initTitleText(layout);
-        initAuthorLabel(layout);
         initAuthorText(layout);
-        initPublisherLabel(layout);
         initPublisherText(layout);
-        initPublishedDateLabel(layout);
         initPublishedDateText(layout);
-        initIsbnLabel(layout);
         initIsbnText(layout);
-        initUrlLabel(layout);
         initUrlText(layout);
-        resetSelectedValue();
     }
 
     public int getSelectedIndex() {
@@ -133,164 +124,148 @@ public class ReferenceTablePanel extends JPanel {
         add(scrollPane);
     }
 
-    private void initPageLabel(GridBagLayout layout) {
-        pageLabel = new CustomTextLabel(String.valueOf(0));
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 2;
-        gbc.gridy = 1;
-        layout.setConstraints(pageLabel, gbc);
-        add(pageLabel);
-    }
-
-    private void initBackButton(GridBagLayout layout) {
+    private void initPagingButton(GridBagLayout layout) {
         backButton = new CustomButton("◀", 10);
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        gbc.anchor = GridBagConstraints.EAST;
-        layout.setConstraints(backButton, gbc);
+        GridBagConstraints backButtonConst = new GridBagConstraints();
+        backButtonConst.gridx = 1;
+        backButtonConst.gridy = 1;
+        backButtonConst.anchor = GridBagConstraints.EAST;
+        layout.setConstraints(backButton, backButtonConst);
         add(backButton);
-    }
 
-    private void initNextButton(GridBagLayout layout) {
+        pageLabel = new CustomTextLabel(String.valueOf(0));
+        GridBagConstraints labelConst = new GridBagConstraints();
+        labelConst.gridx = 2;
+        labelConst.gridy = 1;
+        layout.setConstraints(pageLabel, labelConst);
+        add(pageLabel);
+
         nextButton = new CustomButton("▶", 10);
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 3;
-        gbc.gridy = 1;
-        gbc.anchor = GridBagConstraints.WEST;
-        layout.setConstraints(nextButton, gbc);
+        GridBagConstraints nextButtonConst = new GridBagConstraints();
+        nextButtonConst.gridx = 3;
+        nextButtonConst.gridy = 1;
+        nextButtonConst.anchor = GridBagConstraints.WEST;
+        layout.setConstraints(nextButton, nextButtonConst);
         add(nextButton);
     }
 
-    private void initTitleLabel(GridBagLayout layout) {
-        CustomTextLabel titleLabel = new CustomTextLabel("題名：");
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.anchor = GridBagConstraints.WEST;
-        layout.setConstraints(titleLabel, gbc);
-        add(titleLabel);
-    }
-
     private void initTitleText(GridBagLayout layout) {
+        CustomTextLabel titleLabel = new CustomTextLabel("題名：");
+        GridBagConstraints labelConst = new GridBagConstraints();
+        labelConst.gridx = 0;
+        labelConst.gridy = 2;
+        labelConst.anchor = GridBagConstraints.WEST;
+        layout.setConstraints(titleLabel, labelConst);
+        add(titleLabel);
+
         titleText = new CustomText();
         titleText.setPreferredSize(new Dimension(540, 20));
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 2;
-        gbc.gridwidth = 3;
-        gbc.anchor = GridBagConstraints.WEST;
-        layout.setConstraints(titleText, gbc);
+        GridBagConstraints textConst = new GridBagConstraints();
+        textConst.gridx = 1;
+        textConst.gridy = 2;
+        textConst.gridwidth = 3;
+        textConst.anchor = GridBagConstraints.WEST;
+        layout.setConstraints(titleText, textConst);
         add(titleText);
     }
 
-    private void initAuthorLabel(GridBagLayout layout) {
-        CustomTextLabel authorLabel = new CustomTextLabel("著者：");
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        gbc.anchor = GridBagConstraints.WEST;
-        layout.setConstraints(authorLabel, gbc);
-        add(authorLabel);
-    }
-
     private void initAuthorText(GridBagLayout layout) {
+        CustomTextLabel authorLabel = new CustomTextLabel("著者：");
+        GridBagConstraints labelConst = new GridBagConstraints();
+        labelConst.gridx = 0;
+        labelConst.gridy = 3;
+        labelConst.anchor = GridBagConstraints.WEST;
+        layout.setConstraints(authorLabel, labelConst);
+        add(authorLabel);
+
         authorText = new CustomText();
         authorText.setPreferredSize(new Dimension(540, 20));
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 3;
-        gbc.gridwidth = 3;
-        gbc.anchor = GridBagConstraints.WEST;
-        layout.setConstraints(authorText, gbc);
+        GridBagConstraints textConst = new GridBagConstraints();
+        textConst.gridx = 1;
+        textConst.gridy = 3;
+        textConst.gridwidth = 3;
+        textConst.anchor = GridBagConstraints.WEST;
+        layout.setConstraints(authorText, textConst);
         add(authorText);
     }
 
-    private void initPublisherLabel(GridBagLayout layout) {
-        CustomTextLabel publisherLabel = new CustomTextLabel("出版社：");
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 4;
-        gbc.anchor = GridBagConstraints.WEST;
-        layout.setConstraints(publisherLabel, gbc);
-        add(publisherLabel);
-    }
-
     private void initPublisherText(GridBagLayout layout) {
+        CustomTextLabel publisherLabel = new CustomTextLabel("出版社：");
+        GridBagConstraints labelConst = new GridBagConstraints();
+        labelConst.gridx = 0;
+        labelConst.gridy = 4;
+        labelConst.anchor = GridBagConstraints.WEST;
+        layout.setConstraints(publisherLabel, labelConst);
+        add(publisherLabel);
+
         publisherText = new CustomText();
         publisherText.setPreferredSize(new Dimension(540, 20));
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 4;
-        gbc.gridwidth = 3;
-        gbc.anchor = GridBagConstraints.WEST;
-        layout.setConstraints(publisherText, gbc);
+        GridBagConstraints textConst = new GridBagConstraints();
+        textConst.gridx = 1;
+        textConst.gridy = 4;
+        textConst.gridwidth = 3;
+        textConst.anchor = GridBagConstraints.WEST;
+        layout.setConstraints(publisherText, textConst);
         add(publisherText);
     }
 
-    private void initPublishedDateLabel(GridBagLayout layout) {
-        CustomTextLabel publishedDateLabel = new CustomTextLabel("出版日：");
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 5;
-        gbc.anchor = GridBagConstraints.WEST;
-        layout.setConstraints(publishedDateLabel, gbc);
-        add(publishedDateLabel);
-    }
-
     private void initPublishedDateText(GridBagLayout layout) {
+        CustomTextLabel publishedDateLabel = new CustomTextLabel("出版日：");
+        GridBagConstraints labelConst = new GridBagConstraints();
+        labelConst.gridx = 0;
+        labelConst.gridy = 5;
+        labelConst.anchor = GridBagConstraints.WEST;
+        layout.setConstraints(publishedDateLabel, labelConst);
+        add(publishedDateLabel);
+
         publishedDateText = new CustomText();
         publishedDateText.setPreferredSize(new Dimension(540, 20));
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 5;
-        gbc.gridwidth = 3;
-        gbc.anchor = GridBagConstraints.WEST;
-        layout.setConstraints(publishedDateText, gbc);
+        GridBagConstraints textConst = new GridBagConstraints();
+        textConst.gridx = 1;
+        textConst.gridy = 5;
+        textConst.gridwidth = 3;
+        textConst.anchor = GridBagConstraints.WEST;
+        layout.setConstraints(publishedDateText, textConst);
         add(publishedDateText);
     }
 
-    private void initIsbnLabel(GridBagLayout layout) {
-        CustomTextLabel isbnLabel = new CustomTextLabel("ISBN：");
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 6;
-        gbc.anchor = GridBagConstraints.WEST;
-        layout.setConstraints(isbnLabel, gbc);
-        add(isbnLabel);
-    }
-
     private void initIsbnText(GridBagLayout layout) {
+        CustomTextLabel isbnLabel = new CustomTextLabel("ISBN：");
+        GridBagConstraints labelConst = new GridBagConstraints();
+        labelConst.gridx = 0;
+        labelConst.gridy = 6;
+        labelConst.anchor = GridBagConstraints.WEST;
+        layout.setConstraints(isbnLabel, labelConst);
+        add(isbnLabel);
+
         isbnText = new CustomText();
         isbnText.setPreferredSize(new Dimension(540, 20));
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 6;
-        gbc.gridwidth = 3;
-        gbc.anchor = GridBagConstraints.WEST;
-        layout.setConstraints(isbnText, gbc);
+        GridBagConstraints textConst = new GridBagConstraints();
+        textConst.gridx = 1;
+        textConst.gridy = 6;
+        textConst.gridwidth = 3;
+        textConst.anchor = GridBagConstraints.WEST;
+        layout.setConstraints(isbnText, textConst);
         add(isbnText);
     }
 
-    private void initUrlLabel(GridBagLayout layout) {
-        CustomTextLabel urlLabel = new CustomTextLabel("URL：");
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 7;
-        gbc.anchor = GridBagConstraints.WEST;
-        layout.setConstraints(urlLabel, gbc);
-        add(urlLabel);
-    }
-
     private void initUrlText(GridBagLayout layout) {
+        CustomTextLabel urlLabel = new CustomTextLabel("URL：");
+        GridBagConstraints labelConst = new GridBagConstraints();
+        labelConst.gridx = 0;
+        labelConst.gridy = 7;
+        labelConst.anchor = GridBagConstraints.WEST;
+        layout.setConstraints(urlLabel, labelConst);
+        add(urlLabel);
+
         urlText = new CustomText();
         urlText.setPreferredSize(new Dimension(540, 20));
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 7;
-        gbc.gridwidth = 3;
-        gbc.anchor = GridBagConstraints.WEST;
-        layout.setConstraints(urlText, gbc);
+        GridBagConstraints textConst = new GridBagConstraints();
+        textConst.gridx = 1;
+        textConst.gridy = 7;
+        textConst.gridwidth = 3;
+        textConst.anchor = GridBagConstraints.WEST;
+        layout.setConstraints(urlText, textConst);
         add(urlText);
     }
 
