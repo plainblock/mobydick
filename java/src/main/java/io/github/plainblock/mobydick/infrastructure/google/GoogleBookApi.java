@@ -56,6 +56,9 @@ public class GoogleBookApi implements ExternalRepository {
 
     @Override
     public Optional<Book> fetchBook(ISBN isbn) {
+        if (isbn == null) {
+            return Optional.empty();
+        }
         GoogleBookQuery query = new GoogleBookQuery(null, null, null, null, null, isbn.value(), null, null, null, null);
         GoogleBook result = execute(null, query, GoogleBook.class);
         if (result == null || result.getItems().isEmpty()) {
