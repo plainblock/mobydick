@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import {GoogleBook, GoogleBookItem, toBook} from "modules/google/model";
-import {Book} from "modules/hooks/model";
+import {Book, ISBN} from "modules/hooks/model";
 
 const endpoint = "https://www.googleapis.com/books/v1/volumes";
 const client = axios.create({
@@ -55,8 +55,8 @@ export async function searchBooks(title: string, author: string, publisher: stri
   return Promise.reject();
 }
 
-export async function fetchBook(isbn: string): Promise<Book> {
-  if (!isbn) {
+export async function fetchBook(isbn: ISBN): Promise<Book> {
+  if (!isbn || !isbn.value) {
     return Promise.reject();
   }
   const query: Query = {
@@ -65,7 +65,7 @@ export async function fetchBook(isbn: string): Promise<Book> {
     author: "",
     publisher: "",
     subject: "",
-    isbn: isbn,
+    isbn: isbn.value,
     lccn: "",
     oclc: "",
     number: 0,

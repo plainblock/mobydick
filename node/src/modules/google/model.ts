@@ -1,3 +1,5 @@
+import {Book, BookStatus, ISBN} from "../hooks/model";
+
 export interface GoogleBook {
   kind: string,
   totalItems: number,
@@ -15,16 +17,16 @@ export interface GoogleBookItem {
   searchInfo: SearchInfo,
 }
 
-export function toBook(item: GoogleBookItem) {
+export function toBook(item: GoogleBookItem): Book {
   return {
     id: "",
-    isbn: getISBN(item.volumeInfo),
+    isbn: new ISBN(getISBN(item.volumeInfo)),
     title: item.volumeInfo.title,
     author: getAuthor(item.volumeInfo),
     publisher: item.volumeInfo.publisher,
     publishedDate: item.volumeInfo.publishedDate,
     information: item.volumeInfo.previewLink,
-    status: "",
+    status: new BookStatus(0),
     registerAt: "",
     readAt: "",
   }
