@@ -1,50 +1,56 @@
-import axios from "axios";
+import axios, { AxiosInstance } from "axios";
 
 import { GoogleBook, GoogleBookItem, toBook } from "modules/google/model";
 import { Book, ISBN } from "modules/hooks/model";
 
-const endpoint = "https://www.googleapis.com/books/v1/volumes";
-const client = axios.create({
-  responseType: "json",
-  headers: {
-    "Content-Type": "application/json",
-  },
-})
+export class GoogleBookApi {
+  endpoint: string = "https://www.googleapis.com/books/v1/volumes";
+  client: AxiosInstance;
 
-export async function searchBooks(title: string, author: string, publisher: string, number: number, page: number): Promise<Book[]> {
-  if (page < 1) {
+  constructor() {
+    this.client = axios.create({
+      responseType: "json",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    })
+  };
+
+  async searchBooks(condition: { title?: string, author?: string, publisher?: string }, number: number, page: number): Promise<Book[]> {
+    const { title, author, publisher } = condition;
+    if (number < 1) number = 10;
+    if (page < 1) page = 1;
+    const index = (page - 1) * number;
+    const query: Query = new Query({ title, author, publisher, number, index });
+    const response = await this.client.get(this.endpoint + query.toParam());
+    if (response.status === 200) {
+      const data: GoogleBook = response.data as GoogleBook;
+      const books: Book[] = [];
+      if (data.items) {
+        data.items.forEach((item: GoogleBookItem) => {
+          books.push(toBook(item));
+        })
+      }
+      return Promise.resolve(books)
+    }
     return Promise.reject();
   }
-  const index = (page - 1) * number;
-  const query: Query = new Query({ title, author, publisher, number, index });
-  const response = await client.get(endpoint + query.toParam());
-  if (response.status === 200) {
-    const data: GoogleBook = response.data as GoogleBook;
-    const books: Book[] = [];
-    if (data.items) {
-      data.items.forEach((item: GoogleBookItem) => {
-        books.push(toBook(item));
-      })
-    }
-    return Promise.resolve(books)
-  }
-  return Promise.reject();
-}
 
-export async function fetchBook(isbn: ISBN): Promise<Book> {
-  if (!isbn || !isbn.value) {
+  async fetchBook(isbn: ISBN): Promise<Book> {
+    if (!isbn || !isbn.value) {
+      return Promise.reject();
+    }
+    const query: Query = new Query({ isbn: isbn.value });
+    const response = await this.client.get(this.endpoint + query.toParam());
+    if (response.status === 200) {
+      const data: GoogleBook = response.data as GoogleBook;
+      if (data.items) {
+        const item: GoogleBookItem = response.data.items[0] as GoogleBookItem;
+        return Promise.resolve(toBook(item));
+      }
+    }
     return Promise.reject();
   }
-  const query: Query = new Query({ isbn: isbn.value });
-  const response = await client.get(endpoint + query.toParam());
-  if (response.status === 200) {
-    const data: GoogleBook = response.data as GoogleBook;
-    if (data.items) {
-      const item: GoogleBookItem = response.data.items[0] as GoogleBookItem;
-      return Promise.resolve(toBook(item));
-    }
-  }
-  return Promise.reject();
 }
 
 class Query {
