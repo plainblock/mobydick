@@ -1,5 +1,7 @@
+import { v4 } from "uuid";
+
 export interface Book {
-  id: string;
+  id: BookId;
   isbn: ISBN;
   title: string;
   author: string;
@@ -9,6 +11,18 @@ export interface Book {
   status: BookStatus;
   registerAt: string;
   readAt: string;
+}
+
+export class BookId {
+  value: string;
+
+  constructor(value: string) {
+    if (value) {
+      this.value = value;
+    } else {
+      this.value = v4();
+    }
+  }
 }
 
 export class BookStatus {

@@ -1,4 +1,4 @@
-import {Book, BookStatus, ISBN} from "../hooks/model";
+import { Book, BookId, BookStatus, ISBN } from "../hooks/model";
 
 export interface GoogleBook {
   kind: string,
@@ -19,7 +19,7 @@ export interface GoogleBookItem {
 
 export function toBook(item: GoogleBookItem): Book {
   return {
-    id: "",
+    id: new BookId(""),
     isbn: new ISBN(getISBN(item.volumeInfo)),
     title: item.volumeInfo.title,
     author: getAuthor(item.volumeInfo),

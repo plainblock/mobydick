@@ -1,8 +1,8 @@
-import {filterBooks, getAllBooks, searchBooks} from "modules/sqlite/client";
-import {Book, BookStatus} from "modules/hooks/model";
+import { filterBooks, getAllBooks, getBook, persist, searchBooks, truncate } from "modules/sqlite/client";
+import { Book, BookId, BookStatus, ISBN } from "modules/hooks/model";
 
 test("searchBooks", async () => {
-  const books = await searchBooks({keyword: "Moby"});
+  const books = await searchBooks({keyword: "Moby", status: new BookStatus(1)});
   books.forEach((book: Book) => {
     viewConsole(book);
   })
@@ -21,6 +21,45 @@ test("getAllBooks", async () => {
     viewConsole(book);
   })
 })
+
+test("getBook", async () => {
+  const book = await getBook(new BookId("bb6dc3ff-a38d-4cc9-9e2d-0f2bd97a3a65"));
+  viewConsole(book);
+})
+
+test("persistTest", async () => {
+  const target: Book = {
+    id: new BookId("bb6dc3ff-a38d-4cc9-9e2d-0f2bd97a3a65"),
+    isbn: new ISBN("9780810102699"),
+    title: "Moby-Dick, Or The Whale",
+    author: "Herman Melville",
+    publisher: "Northwestern University Press",
+    publishedDate: "1988-09-09",
+    information: "",
+    status: new BookStatus(2),
+    registerAt: "2022-01-01",
+    readAt: "2022-07-01",
+  }
+  const result: Book = await persist(target);
+  viewConsole(result);
+})
+
+test("truncateTest", async () => {
+  const target: Book = {
+    id: new BookId("bb6dc3ff-a38d-4cc9-9e2d-0f2bd97a3a65"),
+    isbn: new ISBN("9780810102699"),
+    title: "Moby-Dick, Or The Whale",
+    author: "Herman Melville",
+    publisher: "Northwestern University Press",
+    publishedDate: "1988-09-09",
+    information: "",
+    status: new BookStatus(2),
+    registerAt: "2022-01-01",
+    readAt: "2022-07-01",
+  }
+  await truncate(target)
+})
+
 
 function viewConsole(book: Book) {
   console.log(JSON.stringify(book))
