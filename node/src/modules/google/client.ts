@@ -1,7 +1,7 @@
 import axios from "axios";
 
-import {GoogleBook, GoogleBookItem, toBook} from "modules/google/model";
-import {Book, ISBN} from "modules/hooks/model";
+import { GoogleBook, GoogleBookItem, toBook } from "modules/google/model";
+import { Book, ISBN } from "modules/hooks/model";
 
 const endpoint = "https://www.googleapis.com/books/v1/volumes";
 const client = axios.create({
@@ -11,37 +11,13 @@ const client = axios.create({
   },
 })
 
-interface Query {
-  keyword: string,
-  title: string,
-  author: string,
-  publisher: string,
-  subject: string,
-  isbn: string,
-  lccn: string,
-  oclc: string,
-  number: number,
-  index: number,
-}
-
 export async function searchBooks(title: string, author: string, publisher: string, number: number, page: number): Promise<Book[]> {
   if (page < 1) {
     return Promise.reject();
   }
   const index = (page - 1) * number;
-  const query: Query = {
-    keyword: "",
-    title: title,
-    author: author,
-    publisher: publisher,
-    subject: "",
-    isbn: "",
-    lccn: "",
-    oclc: "",
-    number: number,
-    index: index,
-  }
-  const response = await client.get(endpoint + toParam(query));
+  const query: Query = new Query({ title, author, publisher, number, index });
+  const response = await client.get(endpoint + query.toParam());
   if (response.status === 200) {
     const data: GoogleBook = response.data as GoogleBook;
     const books: Book[] = [];
@@ -59,19 +35,8 @@ export async function fetchBook(isbn: ISBN): Promise<Book> {
   if (!isbn || !isbn.value) {
     return Promise.reject();
   }
-  const query: Query = {
-    keyword: "",
-    title: "",
-    author: "",
-    publisher: "",
-    subject: "",
-    isbn: isbn.value,
-    lccn: "",
-    oclc: "",
-    number: 0,
-    index: 0,
-  }
-  const response = await client.get(endpoint + toParam(query));
+  const query: Query = new Query({ isbn: isbn.value });
+  const response = await client.get(endpoint + query.toParam());
   if (response.status === 200) {
     const data: GoogleBook = response.data as GoogleBook;
     if (data.items) {
@@ -82,52 +47,78 @@ export async function fetchBook(isbn: ISBN): Promise<Book> {
   return Promise.reject();
 }
 
-function toParam(query: Query): string {
-  let param: string = "?q="
-  let requirePlusMarker: boolean = false;
-  if (query.keyword) {
-    param += encodeURI(query.keyword);
-    requirePlusMarker = true;
-  }
-  if (query.title) {
-    param += appendParam("intitle", query.title, requirePlusMarker);
-    requirePlusMarker = true;
-  }
-  if (query.author) {
-    param += appendParam("inauthor", query.author, requirePlusMarker);
-    requirePlusMarker = true;
-  }
-  if (query.publisher) {
-    param += appendParam("inpublisher", query.publisher, requirePlusMarker);
-    requirePlusMarker = true;
-  }
-  if (query.subject) {
-    param += appendParam("subject", query.subject, requirePlusMarker);
-    requirePlusMarker = true;
-  }
-  if (query.isbn) {
-    param += appendParam("isbn", query.isbn, requirePlusMarker);
-    requirePlusMarker = true;
-  }
-  if (query.lccn) {
-    param += appendParam("lccn", query.lccn, requirePlusMarker);
-    requirePlusMarker = true;
-  }
-  if (query.oclc) {
-    param += appendParam("oclc", query.oclc, requirePlusMarker);
-  }
-  if (query.number !== 0) {
-    param += `&maxResults=${query.number}`
-  }
-  if (query.index !== 0) {
-    param += `&startIndex=${query.index}`
-  }
-  return param;
-}
+class Query {
+  keyword: string;
+  title: string;
+  author: string;
+  publisher: string;
+  subject: string;
+  isbn: string;
+  lccn: string;
+  oclc: string;
+  number: number;
+  index: number;
 
-function appendParam(key: string, value: string, plusMarker: boolean): string {
-  if (plusMarker) {
-    return "+" + key + ":" + encodeURI(value);
+  constructor(query: { keyword?: string, title?: string, author?: string, publisher?: string, subject?: string, isbn?: string, lccn?: string, oclc?: string, number?: number, index?: number }) {
+    this.keyword = query.keyword ? query.keyword : "";
+    this.title = query.title ? query.title : "";
+    this.author = query.author ? query.author : "";
+    this.publisher = query.publisher ? query.publisher : "";
+    this.subject = query.subject ? query.subject : "";
+    this.isbn = query.isbn ? query.isbn : "";
+    this.lccn = query.lccn ? query.lccn : "";
+    this.oclc = query.oclc ? query.oclc : "";
+    this.number = query.number ? query.number : 0;
+    this.index = query.index ? query.index : 0;
   }
-  return key + ":" + encodeURI(value);
+
+  toParam(): string {
+    let param: string = "?q="
+    let requirePlusMarker: boolean = false;
+    if (this.keyword) {
+      param += encodeURI(this.keyword);
+      requirePlusMarker = true;
+    }
+    if (this.title) {
+      param += this.appendParam("intitle", this.title, requirePlusMarker);
+      requirePlusMarker = true;
+    }
+    if (this.author) {
+      param += this.appendParam("inauthor", this.author, requirePlusMarker);
+      requirePlusMarker = true;
+    }
+    if (this.publisher) {
+      param += this.appendParam("inpublisher", this.publisher, requirePlusMarker);
+      requirePlusMarker = true;
+    }
+    if (this.subject) {
+      param += this.appendParam("subject", this.subject, requirePlusMarker);
+      requirePlusMarker = true;
+    }
+    if (this.isbn) {
+      param += this.appendParam("isbn", this.isbn, requirePlusMarker);
+      requirePlusMarker = true;
+    }
+    if (this.lccn) {
+      param += this.appendParam("lccn", this.lccn, requirePlusMarker);
+      requirePlusMarker = true;
+    }
+    if (this.oclc) {
+      param += this.appendParam("oclc", this.oclc, requirePlusMarker);
+    }
+    if (this.number !== 0) {
+      param += `&maxResults=${this.number}`
+    }
+    if (this.index !== 0) {
+      param += `&startIndex=${this.index}`
+    }
+    return param;
+  }
+
+  appendParam(key: string, value: string, plusMarker: boolean): string {
+    if (plusMarker) {
+      return "+" + key + ":" + encodeURI(value);
+    }
+    return key + ":" + encodeURI(value);
+  }
 }
