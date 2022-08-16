@@ -26,6 +26,7 @@
     "@types/react-dom": "^18.0.6",
     "@types/sqlite3": "^3.1.8",
     "concurrently": "^7.3.0",
+    "cross-env": "^7.0.3",
     "electron": "^20.0.2",
     "electron-builder": "^23.3.3",
     "wait-on": "^6.0.1"
@@ -41,11 +42,11 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "GENERATE_SOURCEMAP=false react-scripts build",
+    "build": "cross-env GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "postinstall": "electron-builder install-app-deps",
-    "develop": "concurrently \"BROWSER=none npm start\" \"wait-on http://localhost:3000 && tsc -p electron -w\" \"wait-on http://localhost:3000 && tsc -p electron && electron .\"",
+    "develop": "concurrently \"cross-env BROWSER=none npm start\" \"wait-on http://localhost:3000 && tsc -p electron -w\" \"wait-on http://localhost:3000 && tsc -p electron && electron .\"",
     "product": "npm run build && tsc -p electron && electron-builder"
   },
   "eslintConfig": {
