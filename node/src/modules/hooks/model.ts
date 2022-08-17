@@ -1,4 +1,4 @@
-import { v4 } from "uuid";
+import {v4} from "uuid";
 
 export interface Book {
   id: BookId;
@@ -31,20 +31,20 @@ export class BookStatus {
 
   constructor(code: number) {
     this.code = code;
-    this.label = toStatusLabel(code);
+    this.label = this.toLabel(code);
   }
-}
 
-function toStatusLabel(code: number): string {
-  switch (code) {
-    case 0:
-      return "未購入";
-    case 1:
-      return "積読";
-    case 2:
-      return "既読";
-    default:
-      return "不明";
+  toLabel(code: number): string {
+    switch (code) {
+      case 0:
+        return "未購入";
+      case 1:
+        return "積読";
+      case 2:
+        return "既読";
+      default:
+        return "不明";
+    }
   }
 }
 
