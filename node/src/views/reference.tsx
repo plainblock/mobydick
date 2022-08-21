@@ -1,4 +1,4 @@
-import {ReferenceTable} from "components/blocks/reference";
+import {ReferenceForm, ReferenceTable} from "components/blocks/reference";
 import {Book, BookId, BookStatus, ISBN} from "modules/hooks/model";
 
 const example: Book[] = [
@@ -30,7 +30,8 @@ const example: Book[] = [
 function ReferenceView(): JSX.Element {
   return (
     <div className="reference">
-      <ReferenceTable books={example}/>
+      <ReferenceForm />
+      <ReferenceTable books={example} />
     </div>
   )
 }
