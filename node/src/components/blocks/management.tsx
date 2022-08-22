@@ -3,6 +3,12 @@ import { Option } from "antd/es/mentions";
 
 import { Identifier } from "components/constants/html";
 
+interface ManagementFormData {
+  status: string;
+  title: string;
+  author: string;
+}
+
 export function ManagementForm(): JSX.Element {
   function onFinish(value: any) {}
 
