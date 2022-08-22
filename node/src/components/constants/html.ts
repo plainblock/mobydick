@@ -4,6 +4,7 @@ export const Identifier = {
   publisher: { id: "publisher", label: "出版社" },
   publishedDate: { id: "publishedDate", label: "出版日" },
   isbn: { id: "isbn", label: "ISBN" },
+  status: { id: "status", label: "ステータス" },
 };
 
 export const TableClass = {
