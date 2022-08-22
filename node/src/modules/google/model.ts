@@ -1,20 +1,20 @@
 import { Book, BookId, BookStatus, ISBN } from "../hooks/model";
 
 export interface GoogleBook {
-  kind: string,
-  totalItems: number,
-  items: GoogleBookItem[],
+  kind: string;
+  totalItems: number;
+  items: GoogleBookItem[];
 }
 
 export interface GoogleBookItem {
-  id: string,
-  kind: string,
-  etag: string,
-  selfLink: string,
-  volumeInfo: VolumeInfo,
-  saleInfo: SaleInfo,
-  accessInfo: AccessInfo,
-  searchInfo: SearchInfo,
+  id: string;
+  kind: string;
+  etag: string;
+  selfLink: string;
+  volumeInfo: VolumeInfo;
+  saleInfo: SaleInfo;
+  accessInfo: AccessInfo;
+  searchInfo: SearchInfo;
 }
 
 export function toBook(item: GoogleBookItem): Book {
@@ -29,33 +29,33 @@ export function toBook(item: GoogleBookItem): Book {
     status: new BookStatus(0),
     registerAt: "",
     readAt: "",
-  }
+  };
 }
 
 interface VolumeInfo {
-  title: string,
-  subtitle: string,
-  authors: string[],
-  publisher: string,
-  publishedDate: string,
-  description: string,
-  industryIdentifiers: IndustryIdentifier[],
-  pageCount: number,
-  dimensions: Dimension,
-  readingModes: ReadingMode,
-  printType: string,
-  categories: string[],
-  averageRating: number,
-  ratingsCount: number,
-  maturityRating: string,
-  allowAnonLogging: boolean,
-  contentVersion: string,
-  imageLinks: ImageLink,
-  language: string,
-  mainCategory: string,
-  previewLink: string,
-  infoLink: string,
-  canonicalVolumeLink: string,
+  title: string;
+  subtitle: string;
+  authors: string[];
+  publisher: string;
+  publishedDate: string;
+  description: string;
+  industryIdentifiers: IndustryIdentifier[];
+  pageCount: number;
+  dimensions: Dimension;
+  readingModes: ReadingMode;
+  printType: string;
+  categories: string[];
+  averageRating: number;
+  ratingsCount: number;
+  maturityRating: string;
+  allowAnonLogging: boolean;
+  contentVersion: string;
+  imageLinks: ImageLink;
+  language: string;
+  mainCategory: string;
+  previewLink: string;
+  infoLink: string;
+  canonicalVolumeLink: string;
 }
 
 function getAuthor(volumeInfo: VolumeInfo): string {
@@ -75,7 +75,7 @@ function getISBN(volumeInfo: VolumeInfo): string {
     if (value.type === "ISBN_13") {
       isbn13 = value.identifier;
     } else if (value.type === "ISBN_10") {
-      isbn10 = value.identifier
+      isbn10 = value.identifier;
     }
   });
   if (isbn13) {
@@ -85,38 +85,38 @@ function getISBN(volumeInfo: VolumeInfo): string {
 }
 
 interface IndustryIdentifier {
-  type: string,
-  identifier: string,
+  type: string;
+  identifier: string;
 }
 
 interface Dimension {
-  height: string,
-  width: string,
-  thickness: string,
+  height: string;
+  width: string;
+  thickness: string;
 }
 
 interface ReadingMode {
-  text: boolean,
-  image: boolean,
+  text: boolean;
+  image: boolean;
 }
 
 interface ImageLink {
-  thumbnail: string,
-  small: string,
-  medium: string,
-  large: string,
-  smallThumbnail: string,
-  extraLarge: string,
+  thumbnail: string;
+  small: string;
+  medium: string;
+  large: string;
+  smallThumbnail: string;
+  extraLarge: string;
 }
 
 interface SaleInfo {
-  country: string,
-  saleability: string,
-  isEbook: boolean,
-  listPrice: SalePrice,
-  retailPrice: SalePrice,
-  buyLink: string,
-  onSaleDate: string,
+  country: string;
+  saleability: string;
+  isEbook: boolean;
+  listPrice: SalePrice;
+  retailPrice: SalePrice;
+  buyLink: string;
+  onSaleDate: string;
 }
 
 interface SalePrice {
@@ -125,40 +125,40 @@ interface SalePrice {
 }
 
 interface AccessInfo {
-  country: string,
-  viewability: string,
-  embeddable: boolean,
-  publicDomain: boolean,
-  textToSpeechPermission: string,
-  epub: AccessLink,
-  pdf: AccessLink,
-  webReaderLink: string,
-  accessViewStatus: string,
-  quoteSharingAllowed: boolean,
-  downloadAccess: DownloadAccess,
+  country: string;
+  viewability: string;
+  embeddable: boolean;
+  publicDomain: boolean;
+  textToSpeechPermission: string;
+  epub: AccessLink;
+  pdf: AccessLink;
+  webReaderLink: string;
+  accessViewStatus: string;
+  quoteSharingAllowed: boolean;
+  downloadAccess: DownloadAccess;
 }
 
 interface AccessLink {
-  downloadLink: string,
-  acsTokenLink: string,
-  isAvailable: boolean,
+  downloadLink: string;
+  acsTokenLink: string;
+  isAvailable: boolean;
 }
 
 interface DownloadAccess {
-  kind: string,
-  volumeId: string,
-  restricted: boolean,
-  deviceAllowed: boolean,
-  justAcquired: boolean,
-  maxDownloadDevices: number,
-  downloadsAcquired: number,
-  nonce: string,
-  source: string,
-  reasonCode: string,
-  message: string,
-  signature: string,
+  kind: string;
+  volumeId: string;
+  restricted: boolean;
+  deviceAllowed: boolean;
+  justAcquired: boolean;
+  maxDownloadDevices: number;
+  downloadsAcquired: number;
+  nonce: string;
+  source: string;
+  reasonCode: string;
+  message: string;
+  signature: string;
 }
 
 interface SearchInfo {
-  textSnippet: string,
+  textSnippet: string;
 }

@@ -1,4 +1,4 @@
-import {v4} from "uuid";
+import { v4 } from "uuid";
 
 export interface Book {
   id: BookId;
@@ -34,6 +34,7 @@ export class BookStatus {
     this.label = this.toLabel(code);
   }
 
+  // eslint-disable-next-line class-methods-use-this
   toLabel(code: number): string {
     switch (code) {
       case 0:
@@ -53,9 +54,9 @@ export class ISBN {
 
   constructor(value: string) {
     if (value) {
-      this.value = value.trim().replaceAll("-", "")
+      this.value = value.trim().replaceAll("-", "");
     } else {
-      this.value = ""
+      this.value = "";
     }
   }
 }

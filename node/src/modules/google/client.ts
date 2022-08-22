@@ -12,11 +12,15 @@ export class GoogleBookApi {
       responseType: "json",
       headers: {
         "Content-Type": "application/json",
-      }
-    })
-  };
+      },
+    });
+  }
 
-  async searchBooks(condition: { title?: string, author?: string, publisher?: string }, number: number, page: number): Promise<Book[]> {
+  async searchBooks(
+    condition: { title?: string; author?: string; publisher?: string },
+    number: number,
+    page: number
+  ): Promise<Book[]> {
     const { title, author, publisher } = condition;
     if (number < 1) number = 10;
     if (page < 1) page = 1;
@@ -29,9 +33,9 @@ export class GoogleBookApi {
       if (data.items) {
         data.items.forEach((item: GoogleBookItem) => {
           books.push(toBook(item));
-        })
+        });
       }
-      return Promise.resolve(books)
+      return Promise.resolve(books);
     }
     return Promise.reject();
   }
@@ -65,7 +69,18 @@ class Query {
   number: number;
   index: number;
 
-  constructor(query: { keyword?: string, title?: string, author?: string, publisher?: string, subject?: string, isbn?: string, lccn?: string, oclc?: string, number?: number, index?: number }) {
+  constructor(query: {
+    keyword?: string;
+    title?: string;
+    author?: string;
+    publisher?: string;
+    subject?: string;
+    isbn?: string;
+    lccn?: string;
+    oclc?: string;
+    number?: number;
+    index?: number;
+  }) {
     this.keyword = query.keyword ? query.keyword : "";
     this.title = query.title ? query.title : "";
     this.author = query.author ? query.author : "";
@@ -79,7 +94,7 @@ class Query {
   }
 
   toParam(): string {
-    let param: string = "?q="
+    let param: string = "?q=";
     let requirePlusMarker: boolean = false;
     if (this.keyword) {
       param += encodeURI(this.keyword);
@@ -113,18 +128,18 @@ class Query {
       param += this.appendParam("oclc", this.oclc, requirePlusMarker);
     }
     if (this.number !== 0) {
-      param += `&maxResults=${this.number}`
+      param += `&maxResults=${this.number}`;
     }
     if (this.index !== 0) {
-      param += `&startIndex=${this.index}`
+      param += `&startIndex=${this.index}`;
     }
     return param;
   }
 
   appendParam(key: string, value: string, plusMarker: boolean): string {
     if (plusMarker) {
-      return "+" + key + ":" + encodeURI(value);
+      return `+${key}:${encodeURI(value)}`;
     }
-    return key + ":" + encodeURI(value);
+    return `${key}:${encodeURI(value)}`;
   }
 }

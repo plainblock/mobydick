@@ -5,7 +5,7 @@ const client = new GoogleBookApi();
 
 test("searchBooksTest", async () => {
   const books = await client.searchBooks({ title: "Moby-Dick" }, 10, 1);
-  expect(books).not.toBeNull()
+  expect(books).not.toBeNull();
   books.forEach((book: Book) => {
     console.log(JSON.stringify(book));
   });

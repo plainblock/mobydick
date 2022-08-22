@@ -1,0 +1,19 @@
+### Artifacts ###
+build
+coverage
+dist
+public
+node_module
+
+### Images ###
+*.gif
+*.ico
+*.jpg
+*.jpeg
+*.png
+*.svg
+
+### Codes ###
+src/index.tsx
+src/*.d.ts
+*.json
