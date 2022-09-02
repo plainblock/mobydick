@@ -24,7 +24,7 @@ class BookTable {
   );
 }
 
-class BookRepositoryImpl extends SqliteClient implements BookRepository {
+class BookDao extends SqliteClient implements BookRepository {
   @override
   Future<List<Book>> getAllBooks() async {
     final Database db = await getConnection();

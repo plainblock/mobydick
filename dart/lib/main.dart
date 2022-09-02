@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
-import 'infrastructure/sqlite/book_repository_impl.dart';
+import 'infrastructure/sqlite/book_dao.dart';
 
-final bookRepository = BookRepositoryImpl();
+final bookRepository = BookDao();
 
 void main() async {
   runApp(const MyApp());
