@@ -6,6 +6,9 @@ class Book {
   String publisher;
   String publishedDate;
   String information;
+  int status;
+  String registerAt;
+  String readAt;
 
   Book(
     this.id,
@@ -15,6 +18,9 @@ class Book {
     this.publisher,
     this.publishedDate,
     this.information,
+    this.status,
+    this.registerAt,
+    this.readAt,
   );
 
   toJson() => {

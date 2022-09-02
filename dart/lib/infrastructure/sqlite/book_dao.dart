@@ -12,6 +12,9 @@ class BookTable {
   String publisher;
   String publishedDate;
   String information;
+  int status;
+  String registerAt;
+  String readAt;
 
   BookTable(
     this.id,
@@ -21,6 +24,9 @@ class BookTable {
     this.publisher,
     this.publishedDate,
     this.information,
+    this.status,
+    this.registerAt,
+    this.readAt,
   );
 }
 
@@ -44,7 +50,20 @@ _toEntity(Map<String, dynamic> map) => Book(
       map['publisher'] ?? "",
       map['published_date'] ?? "",
       map['information'] ?? "",
+      map['status'] ?? 0,
+      map['registerAt'] ?? "",
+      map['readAt'] ?? "",
     );
 
-_fromEntity(Book book) => BookTable(book.id, book.isbn, book.title, book.author,
-    book.publisher, book.publishedDate, book.information);
+_fromEntity(Book book) => BookTable(
+      book.id,
+      book.isbn,
+      book.title,
+      book.author,
+      book.publisher,
+      book.publishedDate,
+      book.information,
+      book.status,
+      book.registerAt,
+      book.readAt,
+    );
